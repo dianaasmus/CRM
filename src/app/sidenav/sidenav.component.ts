@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { User } from 'src/models/user.class';
-import { DatabaseService } from '../database.service';
 import { MatDrawer } from '@angular/material/sidenav';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { getAuth, signOut } from "firebase/auth";
+import { User } from 'src/models/user.class';
 import { AuthService } from '../auth.service';
+import { DatabaseService } from '../database.service';
+import { MediaMatcher } from '@angular/cdk/layout';
+
 
 
 @Component({
@@ -23,7 +24,7 @@ export class SidenavComponent implements OnInit {
   currentUserId: string = '';
 
 
-  constructor(private router: Router, private database: DatabaseService, private authService: AuthService) {
+  constructor(private router: Router, private database: DatabaseService, private authService: AuthService, private mediaMatcher: MediaMatcher) {
     this.currentUrl = this.router.url;
     this.subUsersList();
     this.subURL()
@@ -32,6 +33,11 @@ export class SidenavComponent implements OnInit {
 
   logout() {
     this.authService.signOutUser();
+  }
+
+
+  isSmallScreen(): boolean {
+    return this.mediaMatcher.matchMedia('(max-width: 1000px)').matches;
   }
 
 

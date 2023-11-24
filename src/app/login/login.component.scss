@@ -16,6 +16,10 @@
     display: flex;
     align-items: center;
 
+    @media (max-width: 400px) {
+        width: 320px;
+    }
+
     img {
         height: 100px;
         width: 100px;

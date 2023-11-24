@@ -1,6 +1,6 @@
 <div class="center">
-    <mat-card class="login-container">
-        
+    <mat-card class="signup-container">
+
         <mat-progress-bar *ngIf="loading" class="spinner" mode="indeterminate"></mat-progress-bar>
 
         <img src="../../assets/imgs/crm-logo.png" alt="CRM logo">
@@ -13,12 +13,13 @@
 
             <mat-form-field class="input-outline" appearance="outline">
                 <mat-label type="password" for="password" class="label">Password</mat-label>
-                <input [(ngModel)]="password" id="password" name="password" matInput required>
+                <input matInput [(ngModel)]="password" matInput name="password" id="password" type="password"
+                    required>
             </mat-form-field>
 
             <p>Already user? <a href="/">Sign in</a></p>
 
-            <button type="submit">Login</button>
+            <button type="submit">Sign up</button>
         </form>
 
     </mat-card>

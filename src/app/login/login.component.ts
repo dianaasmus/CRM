@@ -49,20 +49,24 @@ export class LoginComponent {
 
   signIn() {
     signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      this.loginForm.reset();
-      this.redirectUser();
-    })
-    .catch((error) => {
-      console.log(error);
+      .then((userCredential) => {
+        const user = userCredential.user;
+        this.loginForm.reset();
+        this.redirectUser();
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          this.handleError('Benutzer nicht gefunden');
+        } else {
+          this.handleError('Anderer Authentifizierungsfehler');
+        }
+      });
+  }
 
-      if (error.code === 'auth/user-not-found') {
-        console.log('Benutzer nicht gefunden');
-      } else {
-        console.log('Anderer Authentifizierungsfehler:', error.code);
-      }
-    });
+  handleError(message: string) {
+    // Was soll passieren
+    console.log(message);
+    
   }
 
 

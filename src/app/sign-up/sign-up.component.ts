@@ -33,6 +33,7 @@ export class SignUpComponent {
 
 
   signUp(loginForm: NgForm) {
+    debugger;
     createUserWithEmailAndPassword(this.auth, this.email, this.password)
       .then((userCredential) => {
         const user = userCredential.user;
