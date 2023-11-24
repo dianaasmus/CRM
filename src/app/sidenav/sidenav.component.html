@@ -1,0 +1,57 @@
+<mat-drawer-container class="sidenav-menu-container" autosize>
+
+
+    <mat-drawer #drawer class="sidenav d-none" id="drawer" [opened]="true" mode="side">
+        <div class="sidenav-inner-container">
+            <div class="logo-container">
+                <img class="website-logo" src="../assets/imgs/crm-logo.png" alt="Simple CRM Logo">
+            </div>
+
+            <hr>
+
+            <ul class="sidenav-list">
+                <li [class.active]="sidenavFocus('dashboard')" routerLink="dashboard"> <mat-icon>space_dashboard</mat-icon>
+                    <p>Dashboard</p>
+                </li>
+                <li [class.active]="sidenavFocus('kanban')" routerLink="kanban"> <mat-icon>view_kanban</mat-icon>
+                    <p>Kanban</p>
+                </li>
+                <li [class.active]="sidenavFocus('user')" routerLink="user"> <mat-icon>group</mat-icon>
+                    <p>User</p>
+                </li>
+                <li *ngIf="currentUserId && sidenavFocus('user/' + currentUserId)" [ngClass]="{'active': sidenavFocus('user/' + currentUserId)}"
+                    [routerLink]="'user/' + currentUserId">
+                    <mat-icon class="turn-arrow">turn_right</mat-icon>
+                    <p>{{ userName }}</p>
+                </li>
+                <li [class.active]="sidenavFocus('products')" routerLink="products"> <mat-icon>inventory_2</mat-icon>
+                    <p>Products</p>
+                </li>
+                <li class="pos-absolut" [class.active]="sidenavFocus('legal-notice')" routerLink="legal-notice">
+                    <mat-icon>gpp_maybe</mat-icon>
+                    <p>Legal Notice</p>
+                </li>
+            </ul>
+        </div>
+    </mat-drawer>
+
+    <mat-drawer-content>
+
+        <div class="menu-container d-none" id="menu">
+            <mat-toolbar-row class="toolbar-row">
+                <mat-icon type="button" mat-button (click)="toggleDrawer()">menu</mat-icon>
+            </mat-toolbar-row>
+
+            <div (click)="logout()" class="login-container">
+                <mat-icon class="login-icon">login</mat-icon>
+                <span class="login-text">Logout</span>
+            </div>
+        </div>
+
+        <div [ngStyle]="{'margin': '3% 5%'}">
+            <router-outlet></router-outlet>
+        </div>
+
+    </mat-drawer-content>
+
+</mat-drawer-container>

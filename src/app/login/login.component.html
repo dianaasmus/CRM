@@ -1,0 +1,33 @@
+<div class="center">
+    <mat-card class="login-container">
+
+        <mat-progress-bar *ngIf="loading" class="spinner" mode="indeterminate"></mat-progress-bar>
+
+        <img src="../../assets/imgs/crm-logo.png" alt="CRM logo">
+
+        <form [formGroup]="loginForm" (ngSubmit)="signIn()" *ngIf="login">
+
+            <mat-form-field class="input-outline" appearance="outline">
+                <mat-label type="email" for="email" class="label">Email</mat-label>
+                <input matInput type="email" name="email" id="email" formControlName="email" [class.error-border]="loginForm.hasError('userNotFound')" required/>
+            </mat-form-field>
+
+            <mat-form-field class="input-outline" appearance="outline">
+                <mat-label type="password" for="password" class="label">Password</mat-label>
+                <input matInput name="password" id="password" type="password" formControlName="password"
+                    [class.error-border]="loginForm.hasError('userNotFound')" required/>
+            </mat-form-field>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div *ngIf="!login" class="select-login-container">
+            <button (click)="login = true"><mat-icon>mail</mat-icon>Email/Password</button>
+
+            <button (click)="signInAnonymously()"><mat-icon>admin_panel_settings</mat-icon>Guest Login</button>
+        </div>
+
+        <p>New here? <a href="/sign-up">Sign up</a></p>
+
+    </mat-card>
+</div>

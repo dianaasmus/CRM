@@ -1,0 +1,37 @@
+<div class="edit-user-container">
+    <mat-progress-bar *ngIf="loading" class="edit-user-spinner" mode="indeterminate"></mat-progress-bar>
+
+    <h1 mat-dialog-title>User address</h1>
+
+    <form (keydown.enter)="$event.preventDefault()" #userForm="ngForm">
+
+        <div mat-dialog-content class="edit-user-content">
+
+            <mat-form-field class="input-outline" appearance="outline">
+                <mat-label for="streetHouse" class="label">Street and House No.</mat-label>
+                <input [disabled]="loading" [(ngModel)]="user.street" type="text" id="streetHouse" name="streetHouse"
+                    matInput placeholder="Street and House No." required>
+            </mat-form-field>
+
+            <div class="double-container">
+                <mat-form-field class="input-outline" appearance="outline">
+                    <mat-label for="zipCode" class="label no-spinners">Zip Code</mat-label>
+                    <input [disabled]="loading" [(ngModel)]="user.zipCode" type="number" id="zipCode" name="zipCode"
+                        matInput placeholder="Zip Code" required>
+                </mat-form-field>
+
+                <mat-form-field class="input-outline" appearance="outline">
+                    <mat-label for="city" class="label">City</mat-label>
+                    <input [disabled]="loading" [(ngModel)]="user.city" type="text" id="city" name="city" matInput
+                        placeholder="City" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div mat-dialog-actions>
+            <button (click)="onNoClick()" mat-button>Cancel</button>
+            <button mat-button cdkFocusInitial (click)="updateUser()" [disabled]="userForm.invalid || loading">Save</button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,256 @@
+.user-container {
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-user-spinner {
+    position: absolute;
+    top: 0;
+    width: 98%;
+    margin-left: -3%;
+}
+
+.user-header {
+    position: relative;
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+    background-color: #6D5DD5;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding: 30px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 16px -2px rgba(0, 0, 0, 0.48);
+
+    div {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+
+        img {
+            height: 100px;
+            background-color: lightgrey;
+            border-radius: 100%;
+            padding: 10px;
+        }
+    }
+}
+
+.user-detail1 {
+    flex-direction: column;
+    gap: 0 !important;
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    p {
+        width: 250px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    span {
+        color: lightgrey;
+    }
+}
+
+.user-btn-container {
+    gap: 0 !important;
+    justify-content: unset !important;
+    margin-left: -10px;
+    margin-top: -10px;
+
+    button,
+    a {
+        background-color: transparent;
+        box-shadow: none;
+        color: white;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.user-data-containers {
+    display: flex;
+    gap: 30px;
+}
+
+.user-list {
+    background-color: #232632;
+    height: auto;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 16px -2px rgba(0, 0, 0, 0.48);
+
+    p {
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            color: grey;
+        }
+    }
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 5px;
+}
+
+.edit-user-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    z-index: 1;
+
+    mat-icon {
+        color: white;
+    }
+}
+
+.del-user {
+    all: unset;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    padding: 10px 13px;
+}
+
+// Table 
+h2 {
+    text-align: center;
+    color: #64b7ff;
+}
+
+.products-list {
+    background-color: #232632;
+    max-height: 500px;
+    overflow: scroll;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 16px -2px rgba(0, 0, 0, 0.48);
+    margin-bottom: 10vh;
+
+    h2 {
+        margin: 0;
+        padding-top: 16px;
+    }
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    font-weight: 100;
+    margin-bottom: 30px !important;
+
+    tr {
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+        padding: 20px;
+        border-bottom: 1px solid #323647;
+        transition: all 125ms ease-in-out;
+
+        th,
+        td {
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    tr:nth-child(even) {
+        background-color: #323647;
+    }
+}
+
+tr:first-child {
+    font-weight: 400;
+    color: #ffffff75;
+}
+
+.td-width {
+    width: 40% !important; 
+}
+
+// filter 
+.purchase-totals {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-top: 10px;
+
+    div {
+        width: 100%;
+    }
+}
+
+.purchase {
+    font-weight: 100;
+}
+
+.set-purchase-totals {
+    display: flex;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        gap: 30px;
+    }
+}
+
+.reset-purchase-totals,
+.set-purchase-totals-p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #232632;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 16px -2px rgba(0, 0, 0, 0.48);
+    width: 200px;
+    padding: 20px;
+    transition: all 125ms ease-in-out;
+    margin: 0;
+
+    p {
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.add-purchase-btn {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background-color: #6D5DD5;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.d-none {
+    display: none;
+}
+
+.add-purchase-btn {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background-color: #6D5DD5;
+    cursor: pointer;
+    z-index: 1;
+}

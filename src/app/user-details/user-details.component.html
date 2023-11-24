@@ -1,0 +1,111 @@
+<div class="user-container">
+
+    <div class="user-header">
+        <mat-progress-bar *ngIf="loading" class="edit-user-spinner" mode="indeterminate"></mat-progress-bar>
+
+        <div>
+            <img src="../../assets/imgs/user-img.png" alt="User Image">
+
+            <div class="user-detail1">
+                <h1>{{ userData.firstName }} {{ userData.lastName }}</h1>
+                <p>{{ userData.email }}</p>
+
+                <div class="user-btn-container">
+                    <a matTooltip="Send mail to {{ userData.firstName }}" [href]="'mailto:' + userData.email" mat-fab>
+                        <mat-icon>mail</mat-icon>
+                    </a>
+                    <button matTooltip="Message {{ userData.firstName }}" mat-fab>
+                        <mat-icon>message</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <button (click)="deleteUser()" class="del-user" matTooltip="Delete {{ userData.firstName }}" mat-fab>
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="user-data-containers">
+        <mat-card class="user-list">
+            <mat-card-content>
+                <h2>About user</h2>
+                <p><span>First name: </span>{{ userData.firstName }}</p>
+                <p><span>Last name: </span>{{ userData.lastName }}</p>
+                <p><span>Birthdate: </span>{{ birthDate | date: 'dd.MM.yyyy' }}</p>
+                <p><span>E-Mail: </span>{{ userData.email }}</p>
+
+                <button [matMenuTriggerFor]="aboutMenu" class="edit-user-btn" mat-fab>
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #aboutMenu="matMenu">
+                    <button (click)="editAbout()" mat-menu-item>
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                </mat-menu>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="user-list">
+            <mat-card-content>
+                <h2>Address</h2>
+                <p><span>Street:</span>{{ userData.street }}</p>
+                <p><span>Zip code:</span>{{ userData.zipCode }}</p>
+                <p><span>City:</span>{{ userData.city }}</p>
+
+                <button [matMenuTriggerFor]="addressMenu" class="edit-user-btn" mat-fab>
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #addressMenu="matMenu">
+                    <button (click)="editAddress()" mat-menu-item>
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                </mat-menu>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="purchase-totals" [class.d-none]="!NoAddedPurchases">
+        <div>
+            <p class="purchase">Purchases:</p>
+            <div class="set-purchase-totals">
+                <p class="set-purchase-totals-p">Total Amount: {{ totalPurchase || 0 }}</p>
+                <p class="set-purchase-totals-p">Total Revenue: <br> {{ totalRevenue | currency:'$ ':'code' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <mat-card class="products-list">
+        <mat-card-content [class.d-none]="!NoAddedPurchases">
+            <h2>Purchases</h2>
+            <table>
+                <tr>
+                    <th class="td-width">Amount</th>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th class="td-width">State</th>
+                </tr>
+
+                <tr *ngFor="let purchase of userData.purchases; let i = index" class="products-tr">
+                    <td class="td-width">{{ purchase.amount }}</td>
+                    <td>{{ purchase.title }}</td>
+                    <td>{{ purchase.type }}</td>
+                    <td>{{ purchase.price }}</td>
+                    <td class="td-width">{{ purchase.state }}</td>
+                </tr>
+            </table>
+        </mat-card-content>
+        <mat-card-content [class.d-none]="NoAddedPurchases">
+            <h2>No purchases yet.</h2>
+        </mat-card-content>
+    </mat-card>
+
+    <button (click)="openDialog()" matTooltip="Add purchase" class="add-purchase-btn" mat-fab color="primary">
+        <mat-icon>add</mat-icon>
+    </button>
+
+</div>

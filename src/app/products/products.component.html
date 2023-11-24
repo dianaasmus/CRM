@@ -1,0 +1,41 @@
+<div class="products-container">
+    <div class="products-header">
+
+        <h1><mat-icon>inventory_2</mat-icon> Products</h1>
+        <div class="search-container">
+            <input class="input-search" placeholder="Search" type="text" [(ngModel)]="input" (ngModelChange)="filterData()">
+            <button (click)="filterData()">
+                <img src="../../assets/imgs/icons/search-icon.png" alt="Search Icon">
+            </button>
+        </div>
+    </div>
+
+    <div class="products-filter">
+        <div>
+            <p>Filter by:</p>
+            <div class="set-products-filter">
+                <p (click)="sortByTitle()" class="set-products-filter-p">Title</p>
+                <p (click)="sortByType()" class="set-products-filter-p">Type</p>
+                <p (click)="sortByPrice()" class="set-products-filter-p">Price</p>
+            </div>
+        </div>
+    </div>
+
+    <mat-card class="products-list">
+        <mat-card-content>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                </tr>
+
+                <tr *ngFor="let product of filteredData; let i = index" class="products-tr">
+                    <td>{{ product.title }}</td>
+                    <td>{{ product.type }}</td>
+                    <td>{{ product.price }}</td>
+                </tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>

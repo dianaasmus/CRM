@@ -1,0 +1,25 @@
+<div class="center">
+    <mat-card class="login-container">
+        
+        <mat-progress-bar *ngIf="loading" class="spinner" mode="indeterminate"></mat-progress-bar>
+
+        <img src="../../assets/imgs/crm-logo.png" alt="CRM logo">
+
+        <form #loginForm="ngForm" (ngSubmit)="signUp(loginForm)">
+            <mat-form-field class="input-outline" appearance="outline">
+                <mat-label type="email" for="email" class="label">Email</mat-label>
+                <input [(ngModel)]="email" id="email" name="email" matInput required>
+            </mat-form-field>
+
+            <mat-form-field class="input-outline" appearance="outline">
+                <mat-label type="password" for="password" class="label">Password</mat-label>
+                <input [(ngModel)]="password" id="password" name="password" matInput required>
+            </mat-form-field>
+
+            <p>Already user? <a href="/">Sign in</a></p>
+
+            <button type="submit">Login</button>
+        </form>
+
+    </mat-card>
+</div>

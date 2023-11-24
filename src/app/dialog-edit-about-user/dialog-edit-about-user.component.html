@@ -1,0 +1,44 @@
+<div class="edit-user-container">
+    <mat-progress-bar *ngIf="loading" class="edit-user-spinner" mode="indeterminate"></mat-progress-bar>
+
+    <h1 mat-dialog-title>About user</h1>
+
+    <form (keydown.enter)="$event.preventDefault()" #userForm="ngForm">
+
+        <div mat-dialog-content class="edit-user-content">
+            <div class="double-container">
+                <mat-form-field class="input-outline" appearance="outline">
+                    <mat-label class="label">First Name</mat-label>
+                    <input [disabled]="loading"  [(ngModel)]="user.firstName" name="firstName" matInput placeholder="First Name" required>
+                </mat-form-field>
+
+                <mat-form-field class="input-outline" appearance="outline">
+                    <mat-label class="label">Last Name</mat-label>
+                    <input [disabled]="loading" [(ngModel)]="user.lastName" name="lastName" matInput placeholder="Last Name" required>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field class="input-outline" appearance="outline">
+                <mat-label>Enter your email</mat-label>
+                <input [disabled]="loading" [(ngModel)]="user.email" name="email" matInput placeholder="crm@example.com"
+                    [formControl]="email" required>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="input-outline" appearance="outline">
+                <mat-label for="birthdate" class="label">Birthdate</mat-label>
+                <input [disabled]="loading" [(ngModel)]="birthDate" id="birthDate" name="birthdate" matInput
+                    [matDatepicker]="picker" [max]="getMaxDate()" required>
+                <mat-datepicker-toggle class="date-picker" matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+
+        <div mat-dialog-actions>
+            <button (click)="onNoClick()" mat-button>Cancel</button>
+            <button mat-button cdkFocusInitial (click)="updateUser()" [disabled]="userForm.invalid || loading">Save</button>
+        </div>
+
+    </form>
+</div>

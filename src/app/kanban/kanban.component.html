@@ -1,0 +1,95 @@
+<div class="kanban">
+
+    <div class="kanban-header">
+        <h1><mat-icon>group</mat-icon>Products kanban</h1>
+        <div class="search-container">
+            <input [(ngModel)]="input" (ngModelChange)="filterData()" class="input-search" placeholder="Search"
+                type="text">
+            <button (click)="filterData()">
+                <img src="../../assets/imgs/icons/search-icon.png" alt="Search Icon">
+            </button>
+        </div>
+    </div>
+
+
+    <div class="kanban-topics">
+        <mat-card class="kanban-container" cdkDropList (cdkDropListDropped)="drop($event)">
+            <mat-card-content class="kanban-topic">
+                <h3>Pending</h3>
+            </mat-card-content>
+
+            <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="pendingArray"
+                [cdkDropListConnectedTo]="[doneList, inProgressList]" (cdkDropListDropped)="drop($event)" id="pending">
+
+                <div class="kanban-topic-lists">
+
+                    <div class="product" cdkDrag *ngFor="let purchase of pendingArray">
+
+                        <div class="purchase-container">
+                            <p>{{ purchase.title }}</p> <br>
+                            <p>{{ purchase.value | currency:'$ ':'code' }}</p>
+                        </div>
+
+                        <p><mat-icon>person</mat-icon>{{ getUserById(purchase.purchaseUser) }} </p>
+
+                    </div>
+                </div>
+
+                <div class="empty-list" *ngIf="pendingArray.length === 0">No purchases pending</div>
+            </div>
+        </mat-card>
+
+
+        <mat-card class="kanban-container" cdkDropList (cdkDropListDropped)="drop($event)">
+            <mat-card-content class="kanban-topic">
+                <h3>In progress</h3>
+            </mat-card-content>
+
+            <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="inProgressArray"
+                [cdkDropListConnectedTo]="[doneList, pendingList]" (cdkDropListDropped)="drop($event)" id="inProgress">
+
+                <div class="kanban-topic-lists">
+                    <div class="product" cdkDrag *ngFor="let purchase of inProgressArray">
+
+                        <div class="purchase-container">
+                            <p>{{ purchase.title }}</p> <br>
+                            <p>{{ purchase.value | currency:'$ ':'code' }}</p>
+                        </div>
+
+                        <p><mat-icon>person</mat-icon>{{ getUserById(purchase.purchaseUser) }} </p>
+
+                    </div>
+                </div>
+
+                <div class="empty-list" *ngIf="inProgressArray.length === 0">No purchases pending</div>
+            </div>
+        </mat-card>
+
+
+        <mat-card class="kanban-container" cdkDropList (cdkDropListDropped)="drop($event)">
+            <mat-card-content class="kanban-topic">
+                <h3>Done</h3>
+            </mat-card-content>
+
+            <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="doneArray"
+                [cdkDropListConnectedTo]="[pendingList, inProgressList]" (cdkDropListDropped)="drop($event)" id="done">
+
+                <div class="kanban-topic-lists">
+                    <div class="product" cdkDrag *ngFor="let purchase of doneArray">
+
+                        <div class="purchase-container">
+                            <p>{{ purchase.title }}</p> <br>
+                            <p>{{ purchase.value | currency:'$ ':'code' }}</p>
+                        </div>
+
+                        <p><mat-icon>person</mat-icon>{{ getUserById(purchase.purchaseUser) }} </p>
+
+                    </div>
+                </div>
+
+                <div class="empty-list" *ngIf="doneArray.length === 0">No purchases pending</div>
+            </div>
+        </mat-card>
+    </div>
+
+</div>

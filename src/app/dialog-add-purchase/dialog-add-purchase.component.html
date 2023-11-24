@@ -1,0 +1,32 @@
+<div class="add-user-container">
+    <mat-progress-bar *ngIf="loading" class="add-user-spinner" mode="indeterminate"></mat-progress-bar>
+
+    <h1 mat-dialog-title>Add purchase</h1>
+
+    <form (keydown.enter)="$event.preventDefault()" #userForm="ngForm">
+
+        <tr class="th">
+            <th>Title</th>
+            <th>Type</th>
+            <th>Price</th>
+        </tr>
+
+        <mat-card-content class="mat-card-content">
+            
+            <table>
+                <tr (click)="addPurchases(i)" *ngFor="let product of products; let i = index" id="product{{ i }}" class="products-tr">
+                    <td>{{ product.title }}</td>
+                    <td>{{ product.type }}</td>
+                    <td>{{ product.price }}</td>
+                </tr>
+            </table>
+
+        </mat-card-content>
+
+        <div mat-dialog-actions>
+            <button (click)="onNoClick()" mat-button>Cancel</button>
+            <button (click)="updateUser()" mat-button cdkFocusInitial [disabled]="userForm.invalid || loading">Add</button>
+        </div>
+
+    </form>
+</div>

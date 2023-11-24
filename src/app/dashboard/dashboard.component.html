@@ -1,0 +1,42 @@
+<div class="welcome-container">
+    <h2>Hello, Guest!</h2>
+    <h1>Welcome Back 👋</h1>
+</div>
+
+<div [ngStyle]="{'max-width': '1000px'}">
+    <div class="overview" #overView>
+
+        <div class="overview-top">
+            <mat-card>
+                <mat-card-content>
+                    <span><mat-icon>group</mat-icon> User</span>
+                    <p>{{ usersList.length }}</p>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card>
+                <mat-card-content>
+                    <span><mat-icon>inventory_2</mat-icon> Products</span>
+                    <p>{{ products.length }}</p>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card>
+                <mat-card-content>
+                    <span><mat-icon>bar_chart_4_bars</mat-icon> Revenue</span>
+                    <p>{{ totalRevenue | currency:'$ ':'code' }}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+    </div>
+
+    <app-chart-user-residence></app-chart-user-residence>
+
+
+    <div class="middle-part">
+        <app-chart-products-sold></app-chart-products-sold>
+    </div>
+
+
+</div>
