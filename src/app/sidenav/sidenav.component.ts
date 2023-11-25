@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { User } from 'src/models/user.class';
 import { AuthService } from '../auth.service';
 import { DatabaseService } from '../database.service';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
 
 
 
@@ -24,7 +24,7 @@ export class SidenavComponent implements OnInit {
   currentUserId: string = '';
 
 
-  constructor(private router: Router, private database: DatabaseService, private authService: AuthService, private mediaMatcher: MediaMatcher) {
+  constructor(private router: Router, private database: DatabaseService, private authService: AuthService, private breakpointObserver: BreakpointObserver) {
     this.currentUrl = this.router.url;
     this.subUsersList();
     this.subURL()
@@ -36,8 +36,8 @@ export class SidenavComponent implements OnInit {
   }
 
 
-  isSmallScreen(): boolean {
-    return this.mediaMatcher.matchMedia('(max-width: 1000px)').matches;
+  isSmallScreen() {
+   return this.breakpointObserver.isMatched('(max-width: 1000px)');
   }
 
 

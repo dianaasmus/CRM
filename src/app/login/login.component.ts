@@ -2,13 +2,13 @@ import { Component, inject } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
 import { signInAnonymously, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
-import { getAuth } from "firebase/auth";
+import { getAuth, fetchSignInMethodsForEmail } from "firebase/auth";
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Auth } from '@angular/fire/auth';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Auth, User } from 'firebase/auth';
 
 
 
@@ -30,7 +30,7 @@ export class LoginComponent {
     appId: "1:651292357158:web:1c0159cd692e3691d8ece7",
   };
   app = initializeApp(this.firebaseConfig);
-  auth = getAuth(this.app);
+  auth: Auth = getAuth(this.app);
   provider = new GoogleAuthProvider();
   loading: boolean = false; // _____________________________________________
   login: boolean = false;
@@ -48,25 +48,44 @@ export class LoginComponent {
 
 
   signIn() {
-    signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        this.loginForm.reset();
-        this.redirectUser();
-      })
-      .catch((error) => {
-        if (error.code === 'auth/user-not-found') {
-          this.handleError('Benutzer nicht gefunden');
-        } else {
-          this.handleError('Anderer Authentifizierungsfehler');
-        }
-      });
+    try {
+      signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          this.loginForm.reset();
+          this.redirectUser();
+          console.log(this.auth);
+
+        })
+    } catch {
+      console.log(Error);
+      
+    }
+
+    // signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password)
+    //   .then((userCredential) => {
+    //     const user = userCredential.user;
+    //     this.loginForm.reset();
+    //     this.redirectUser();
+    //     console.log(this.auth);
+
+    //   })
+    //   .catch((error) => {
+    //     console.log(this.auth);
+
+    //     if (error.code === 'auth/user-not-found') {
+    //       this.handleError('Benutzer nicht gefunden');
+    //     } else {
+    //       this.handleError('Anderer Authentifizierungsfehler');
+    //     }
+    //   });
   }
+
 
   handleError(message: string) {
     // Was soll passieren
     console.log(message);
-    
+
   }
 
 

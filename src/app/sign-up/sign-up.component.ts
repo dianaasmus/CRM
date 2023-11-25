@@ -1,10 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
 import { createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { Firestore } from '@angular/fire/firestore';
-import { getAuth } from "firebase/auth";
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { getAuth } from "firebase/auth";
 
 
 @Component({
@@ -15,7 +14,6 @@ import { NgForm } from '@angular/forms';
 export class SignUpComponent {
   email: string = '';
   password: string = '';
-  firestore: Firestore = inject(Firestore);
   firebaseConfig = {
     apiKey: "AIzaSyBBz_Mh-ZK_uL81UfYcn_TajI_nBadb7xY",
     authDomain: "simple-crm-2d008.firebaseapp.com",
@@ -27,14 +25,44 @@ export class SignUpComponent {
   app = initializeApp(this.firebaseConfig);
   auth = getAuth(this.app);
   loading: boolean = false; // _____________________________________________
+  signupForm!: FormGroup;
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private formbuilder: FormBuilder) { }
 
 
-  signUp(loginForm: NgForm) {
+  ngOnInit() {
+    this.signupForm = this.formbuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6), this.customPasswordValidator]],
+      confirmPassword: ['', Validators.required],
+    }, { validators: this.passwordMatchValidator });
+  }
+
+
+  customPasswordValidator(control: FormControl) {
+    const password = control.value;
+    if (!/@/.test(password) || !/.de$/.test(password)) {
+      return { invalidPassword: true };
+    }
+    return null;
+  }
+
+
+  passwordMatchValidator(formGroup: FormGroup) {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+
+  signUp() {
+    this.loading = true;
     debugger;
-    createUserWithEmailAndPassword(this.auth, this.email, this.password)
+    const email = this.signupForm.get('email')?.value;
+    const password = this.signupForm.get('password')?.value;
+
+    createUserWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
       })
@@ -43,9 +71,11 @@ export class SignUpComponent {
         const errorMessage = error.message;
       })
       .finally(() => {
-        loginForm.resetForm();
+        this.loading = false;
+        this.redirectUser();
       });
   }
+
 
   redirectUser() {
     this.router.navigate(['/dashboard']);

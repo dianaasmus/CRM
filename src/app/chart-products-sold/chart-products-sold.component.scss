@@ -3,9 +3,13 @@
     box-shadow: 5px 0px 16px -8px rgba(0, 0, 0, 0.49);
     border-radius: 5px;
     padding: 20px;
-    width: 70%;
+    width: calc(100% - 290px);
     margin-top: 30px;
     margin-bottom: 10vh;
+
+    @media (max-width: 850px) {
+        width: unset;
+    }
 
     span {
         display: flex;
@@ -26,6 +30,16 @@ mat-card {
     display: flex;
     justify-content: center;
     height: 100px;
+
+    @media (max-width: 850px) {
+        width: 50vw;
+    }
+
+    @media (max-width: 500px) {
+        width: 50vw;
+        width: 100%;
+
+    }
 
     mat-card-content {
         display: flex;
@@ -55,4 +69,21 @@ mat-card {
     gap: 30px;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 850px) {
+        position: relative;
+        justify-content: space-between;
+        flex-direction: row;
+        margin-top: 30px;
+    }
+
+    @media (max-width: 500px) {
+        justify-content: unset;
+        flex-direction: column;
+    }
+}
+
+#chart {
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
