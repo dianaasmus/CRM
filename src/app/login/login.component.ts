@@ -35,7 +35,7 @@ export class LoginComponent {
   loading: boolean = false; // _____________________________________________
   login: boolean = false;
   loginForm: FormGroup;
-
+  userNotFound: boolean = false;
 
 
   constructor(private router: Router, private authService: AuthService, private fb: FormBuilder) {
@@ -48,44 +48,19 @@ export class LoginComponent {
 
 
   signIn() {
-    try {
-      signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          this.loginForm.reset();
-          this.redirectUser();
-          console.log(this.auth);
-
-        })
-    } catch {
-      console.log(Error);
-      
-    }
-
-    // signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password)
-    //   .then((userCredential) => {
-    //     const user = userCredential.user;
-    //     this.loginForm.reset();
-    //     this.redirectUser();
-    //     console.log(this.auth);
-
-    //   })
-    //   .catch((error) => {
-    //     console.log(this.auth);
-
-    //     if (error.code === 'auth/user-not-found') {
-    //       this.handleError('Benutzer nicht gefunden');
-    //     } else {
-    //       this.handleError('Anderer Authentifizierungsfehler');
-    //     }
-    //   });
-  }
-
-
-  handleError(message: string) {
-    // Was soll passieren
-    console.log(message);
-
+    signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        this.loginForm.reset();
+        this.redirectUser();
+      })
+      .catch((error) => {
+        if (error.code === 'auth/invalid-login-credentials') {
+          this.userNotFound = true;
+        } else {
+          console.log(error);
+        }
+      });
   }
 
 

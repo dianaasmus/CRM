@@ -15,27 +15,18 @@
                 </mat-form-field>
 
                 <div class="input-feedback"
-                    *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched">
-                    Email is required.
-                </div>
-                <div class="input-feedback"
-                    *ngIf="signupForm.get('password')?.hasError('invalidPassword') && signupForm.get('password')?.touched">
-                    Password must contain '@' and end with e.g. '.com'.
+                    *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.hasError('email')">
+                    Email must contain '@' and end with e.g. '.com'.
                 </div>
             </div>
 
             <div class="form-group">
                 <mat-form-field class="input-outline" appearance="outline">
                     <mat-label type="password" for="password" class="label">Password</mat-label>
-                    <input matInput type="password" id="password" formControlName="password" required>
+                    <input matInput type="password" id="password" formControlName="password">
                 </mat-form-field>
-
                 <div class="input-feedback"
-                    *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">
-                    Passwort is required.
-                </div>
-                <div class="input-feedback"
-                    *ngIf="signupForm?.get('password')?.hasError('minlength') && signupForm.get('password')?.touched">
+                    *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.hasError('invalidEmail')">
                     Password must be at least {{ signupForm.get('password')?.errors?.['minlength']?.requiredLength }}
                     characters long.
                 </div>
@@ -48,10 +39,6 @@
                 </mat-form-field>
 
                 <div class="input-feedback"
-                    *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched">
-                    Confirm Password is required.
-                </div>
-                <div class="input-feedback"
                     *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched">
                     Passwords do not match.
                 </div>
@@ -59,6 +46,8 @@
 
             <button type="submit" [disabled]="signupForm.invalid">Sign up</button>
         </form>
+
+        <p>Already have an account? <a href="/">Log in</a></p>
 
     </mat-card>
 </div>

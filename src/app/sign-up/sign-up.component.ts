@@ -12,8 +12,6 @@ import { getAuth } from "firebase/auth";
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-  email: string = '';
-  password: string = '';
   firebaseConfig = {
     apiKey: "AIzaSyBBz_Mh-ZK_uL81UfYcn_TajI_nBadb7xY",
     authDomain: "simple-crm-2d008.firebaseapp.com",
@@ -34,18 +32,9 @@ export class SignUpComponent {
   ngOnInit() {
     this.signupForm = this.formbuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6), this.customPasswordValidator]],
+      password: ['', [Validators.required, Validators.minLength(6)] ],
       confirmPassword: ['', Validators.required],
     }, { validators: this.passwordMatchValidator });
-  }
-
-
-  customPasswordValidator(control: FormControl) {
-    const password = control.value;
-    if (!/@/.test(password) || !/.de$/.test(password)) {
-      return { invalidPassword: true };
-    }
-    return null;
   }
 
 
@@ -58,7 +47,6 @@ export class SignUpComponent {
 
   signUp() {
     this.loading = true;
-    debugger;
     const email = this.signupForm.get('email')?.value;
     const password = this.signupForm.get('password')?.value;
 

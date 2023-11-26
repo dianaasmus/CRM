@@ -37,6 +37,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
 }
 
 .label-input {
@@ -67,6 +68,12 @@ form {
     mat-label {
         color: white;
     }
+}
+
+.input-feedback {
+    margin-top: -15px;
+    position: absolute;
+    color: #af3636;
 }
 
 input:-webkit-autofill,
@@ -116,6 +123,6 @@ a {
     color: #a698ff;
 }
 
-.error-border {
-    border: 1px solid red;
-  }
+.mat-form-field-invalid {
+    --mdc-outlined-text-field-outline-color: red;
+}
