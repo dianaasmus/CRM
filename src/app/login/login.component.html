@@ -4,12 +4,13 @@
         <mat-progress-bar *ngIf="loading" class="spinner" mode="indeterminate"></mat-progress-bar>
 
         <img src="../../assets/imgs/crm-logo.png" alt="CRM logo">
+
         <h1>Login</h1>
 
         <form (ngSubmit)="signIn()" [formGroup]="loginForm" *ngIf="login">
-
             <div class="form-group">
-                <mat-form-field class="input-outline" appearance="outline" [class.mat-form-field-invalid]="userNotFound">
+                <mat-form-field class="input-outline" appearance="outline"
+                    [class.mat-form-field-invalid]="userNotFound">
                     <mat-label type="email" for="email" class="label">Email</mat-label>
                     <input matInput type="email" id="email" formControlName="email" autocomplete="username" required>
                 </mat-form-field>
@@ -21,17 +22,19 @@
             </div>
 
             <div class="form-group">
-                <mat-form-field class="input-outline" appearance="outline" [class.mat-form-field-invalid]="userNotFound">
-                  <mat-label type="password" for="password" class="label">Password</mat-label>
-                  <input matInput type="password" id="password" formControlName="password" autocomplete="current-password" required>
+                <mat-form-field class="input-outline" appearance="outline"
+                    [class.mat-form-field-invalid]="userNotFound">
+                    <mat-label type="password" for="password" class="label">Password</mat-label>
+                    <input matInput type="password" id="password" formControlName="password"
+                        autocomplete="current-password" required>
                 </mat-form-field>
-              
+
                 <div class="input-feedback" id="passwordFeedback"
-                  *ngIf="(loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) || userNotFound">
-                  {{ userNotFound ? 'Invalid login credentials.' : 'Password is required.' }}
+                    *ngIf="(loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) || userNotFound">
+                    {{ userNotFound ? 'Invalid login credentials.' : 'Password is required.' }}
                 </div>
-              </div>
-              
+            </div>
+
             <button type="submit" [disabled]="loginForm.invalid">Log in</button>
         </form>
 

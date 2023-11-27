@@ -7,6 +7,10 @@
     padding: 20px;
     box-sizing: border-box;
 
+    @media (max-width: 600px) {
+        min-width: unset;
+    }
+
     h1 {
         color: #a698ff;
         font-size: 2rem;
@@ -33,6 +37,10 @@ form {
 .double-container {
     display: flex;
     gap: 20px;
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+    }
 
     div {
         display: flex;

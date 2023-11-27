@@ -3,7 +3,8 @@
 
         <h1><mat-icon>group</mat-icon> User</h1>
         <div class="search-container">
-            <input class="input-search" placeholder="Search" type="text" [(ngModel)]="input" (ngModelChange)="filterData()">
+            <input class="input-search" placeholder="Search" type="text" [(ngModel)]="input"
+                (ngModelChange)="filterData()">
             <button (click)="filterData()">
                 <img src="../../assets/imgs/icons/search-icon.png" alt="Search Icon">
             </button>
@@ -15,18 +16,18 @@
     </button>
 
     <div class="user-filter">
-        <div>
+        <div [ngStyle]="{'width': '100%'}">
             <p>Filter by:</p>
             <div class="set-user-filter">
-                <p class="set-user-filter-p" (click)="sortUsersByFirstName()">First Name</p>
-                <p class="set-user-filter-p" (click)="sortUsersByLastName()">Last Name</p>
-                <p class="set-user-filter-p" (click)="sortUsersByCity()">City</p>
+                <button class="set-user-filter-p" (click)="sortUsersByFirstName()">First Name</button>
+                <button class="set-user-filter-p" (click)="sortUsersByLastName()">Last Name</button>
+                <button class="set-user-filter-p" (click)="sortUsersByCity()">City</button>
             </div>
         </div>
     </div>
 
     <mat-card class="user-list">
-        <mat-card-content>
+        <mat-card-content [ngStyle]="{'overflow-x': 'auto'}">
             <table>
                 <tr>
                     <th>First Name</th>
@@ -35,7 +36,8 @@
                     <th>E-Mail</th>
                 </tr>
 
-                <tr class="user-tr" *ngFor="let user of filteredData; let i = index" [routerLink]="['/user/' + user.id]">
+                <tr class="user-tr" *ngFor="let user of filteredData; let i = index"
+                    [routerLink]="['/user/' + user.id]">
                     <td>{{ user.firstName }}</td>
                     <td>{{ user.lastName }}</td>
                     <td>{{ user.city }}</td>

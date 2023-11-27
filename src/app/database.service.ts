@@ -33,6 +33,7 @@ export class DatabaseService {
     }
   }
 
+  
   getSingleDocRef(user: User) {
     return doc(collection(this.firestore, 'users'), user.id);
   }

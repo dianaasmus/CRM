@@ -1,12 +1,11 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, inject } from '@angular/core';
-import { Firestore, collection, doc } from '@angular/fire/firestore';
-import { User } from 'src/models/user.class';
-import { DatabaseService } from '../database.service';
-import { updateDoc } from 'firebase/firestore';
-import { Product } from 'src/models/products.class';
-import { AuthService } from '../auth.service';
+import { Firestore } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
+import { Product } from 'src/models/products.class';
+import { User } from 'src/models/user.class';
+import { AuthService } from '../auth.service';
+import { DatabaseService } from '../database.service';
 import { DialogChangeStateComponent } from '../dialog-change-state/dialog-change-state.component';
 
 

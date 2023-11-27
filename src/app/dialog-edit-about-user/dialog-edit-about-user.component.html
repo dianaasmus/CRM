@@ -9,12 +9,14 @@
             <div class="double-container">
                 <mat-form-field class="input-outline" appearance="outline">
                     <mat-label class="label">First Name</mat-label>
-                    <input [disabled]="loading"  [(ngModel)]="user.firstName" name="firstName" matInput placeholder="First Name" required>
+                    <input [disabled]="loading" [(ngModel)]="user.firstName" name="firstName" matInput
+                        placeholder="First Name" required>
                 </mat-form-field>
 
                 <mat-form-field class="input-outline" appearance="outline">
                     <mat-label class="label">Last Name</mat-label>
-                    <input [disabled]="loading" [(ngModel)]="user.lastName" name="lastName" matInput placeholder="Last Name" required>
+                    <input [disabled]="loading" [(ngModel)]="user.lastName" name="lastName" matInput
+                        placeholder="Last Name" required>
                 </mat-form-field>
             </div>
 
@@ -37,7 +39,8 @@
 
         <div mat-dialog-actions>
             <button (click)="onNoClick()" mat-button>Cancel</button>
-            <button mat-button cdkFocusInitial (click)="updateUser()" [disabled]="userForm.invalid || loading">Save</button>
+            <button mat-button cdkFocusInitial (click)="updateUser()"
+                [disabled]="userForm.invalid || loading">Save</button>
         </div>
 
     </form>

@@ -17,12 +17,13 @@
                     <button matTooltip="Message {{ userData.firstName }}" mat-fab>
                         <mat-icon>message</mat-icon>
                     </button>
+
+                    <button (click)="deleteUser()" class="del-user" matTooltip="Delete {{ userData.firstName }}"
+                        mat-fab>
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </div>
             </div>
-
-            <button (click)="deleteUser()" class="del-user" matTooltip="Delete {{ userData.firstName }}" mat-fab>
-                <mat-icon>delete</mat-icon>
-            </button>
         </div>
     </div>
 
@@ -83,7 +84,6 @@
             <h2>Purchases</h2>
             <table>
                 <tr>
-                    <th class="td-width">Amount</th>
                     <th>Title</th>
                     <th>Type</th>
                     <th>Price</th>
@@ -91,7 +91,6 @@
                 </tr>
 
                 <tr *ngFor="let purchase of userData.purchases; let i = index" class="products-tr">
-                    <td class="td-width">{{ purchase.amount }}</td>
                     <td>{{ purchase.title }}</td>
                     <td>{{ purchase.type }}</td>
                     <td>{{ purchase.price }}</td>

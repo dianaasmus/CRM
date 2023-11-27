@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
+import { Firestore, collection, doc, updateDoc } from '@angular/fire/firestore';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserDetailsComponent } from '../user-details/user-details.component';
-import { Firestore, Timestamp, collection, doc, updateDoc } from '@angular/fire/firestore';
-import { FormControl, Validators } from '@angular/forms';
-import { User } from 'src/models/user.class';
 
 @Component({
   selector: 'app-dialog-edit-about-user',
@@ -60,6 +59,6 @@ export class DialogEditAboutUserComponent {
 
 
   getSingleDocRef() {
-    return doc(collection(this.firestore, 'users'), this.user.id); //doc braucht datenbank (firestor) + id von single document
+    return doc(collection(this.firestore, 'users'), this.user.id);
   }
 }

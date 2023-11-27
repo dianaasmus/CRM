@@ -37,7 +37,7 @@ export class DialogAddUserComponent {
 
 
   addNewUser() {
-    this.users.birthDate = this.birthDate.getTime(); // Wandelt das Datum in einen Timestamp um
+    this.users.birthDate = this.birthDate.getTime();
     this.saveUser(this.users);
     this.dialogRef.close();
   }

@@ -25,7 +25,8 @@ export class DialogAddPurchaseComponent {
 
   constructor(private database: DatabaseService,
     private router: Router,
-    public dialogRef: MatDialogRef<DialogAddPurchaseComponent>) { }
+    public dialogRef: MatDialogRef<DialogAddPurchaseComponent>) 
+  { }
 
 
   getUserId() {
@@ -99,7 +100,6 @@ export class DialogAddPurchaseComponent {
       }
     }
   }
-
 
 
   getSingleDocRef() {

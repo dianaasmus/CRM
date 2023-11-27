@@ -114,6 +114,6 @@ export class UserDetailsComponent {
 
 
   getSingleDocRef(docId: string) {
-    return doc(collection(this.firestore, 'users'), docId); //doc braucht datenbank (firestor) + id von single document
+    return doc(collection(this.firestore, 'users'), docId);
   }
 }

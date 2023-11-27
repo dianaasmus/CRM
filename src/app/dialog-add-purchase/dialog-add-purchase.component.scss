@@ -1,11 +1,15 @@
 .add-user-container {
     min-width: 500px;
     width: 100%;
-    height: 100%;
+    height: fit-content;
     text-align: center;
     background-color: #232632;
     padding: 20px;
     box-sizing: border-box;
+    
+    @media (max-width: 600px) {
+        min-width: 300px;
+    }
 
     h1 {
         color: #a698ff;
@@ -20,6 +24,10 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+
+    @media (max-width: 600px) {
+        max-height: 400px;
+    }
 }
 
 .mat-card-content {

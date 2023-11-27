@@ -23,7 +23,8 @@
             <div class="form-group">
                 <mat-form-field class="input-outline" appearance="outline">
                     <mat-label type="password" for="password" class="label">Password</mat-label>
-                    <input matInput type="password" id="password" formControlName="password" autocomplete="new-password" required>
+                    <input matInput type="password" id="password" formControlName="password" autocomplete="new-password"
+                        required>
                 </mat-form-field>
                 <div class="input-feedback"
                     *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.hasError('invalidEmail')">
@@ -35,7 +36,8 @@
             <div class="form-group">
                 <mat-form-field class="input-outline" appearance="outline">
                     <mat-label type="password" for="confirmPassword" class="label">Confirm Password</mat-label>
-                    <input matInput type="password" id="confirmPassword" formControlName="confirmPassword" autocomplete="ne-password" required>
+                    <input matInput type="password" id="confirmPassword" formControlName="confirmPassword"
+                        autocomplete="ne-password" required>
                 </mat-form-field>
 
                 <div class="input-feedback"

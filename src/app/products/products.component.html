@@ -3,7 +3,8 @@
 
         <h1><mat-icon>inventory_2</mat-icon> Products</h1>
         <div class="search-container">
-            <input class="input-search" placeholder="Search" type="text" [(ngModel)]="input" (ngModelChange)="filterData()">
+            <input class="input-search" placeholder="Search" type="text" [(ngModel)]="input"
+                (ngModelChange)="filterData()">
             <button (click)="filterData()">
                 <img src="../../assets/imgs/icons/search-icon.png" alt="Search Icon">
             </button>
@@ -11,7 +12,7 @@
     </div>
 
     <div class="products-filter">
-        <div>
+        <div [ngStyle]="{'width': '100%'}">
             <p>Filter by:</p>
             <div class="set-products-filter">
                 <p (click)="sortByTitle()" class="set-products-filter-p">Title</p>

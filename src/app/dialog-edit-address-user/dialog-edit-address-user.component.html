@@ -30,7 +30,8 @@
 
         <div mat-dialog-actions>
             <button (click)="onNoClick()" mat-button>Cancel</button>
-            <button mat-button cdkFocusInitial (click)="updateUser()" [disabled]="userForm.invalid || loading">Save</button>
+            <button mat-button cdkFocusInitial (click)="updateUser()"
+                [disabled]="userForm.invalid || loading">Save</button>
         </div>
 
     </form>

@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DatabaseService } from '../database.service';
-import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
+import { DatabaseService } from '../database.service';
 
 @Component({
   selector: 'app-products',

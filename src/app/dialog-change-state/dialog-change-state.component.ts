@@ -1,11 +1,10 @@
 import { Component, Inject, inject } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Product } from 'src/models/products.class';
 import { User } from 'src/models/user.class';
 import { DataFlowFirebaseService } from '../data-flow-firebase.service';
 import { DatabaseService } from '../database.service';
-import { Firestore, collection, doc } from '@angular/fire/firestore';
-import { updateDoc } from 'firebase/firestore';
 
 
 

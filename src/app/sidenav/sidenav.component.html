@@ -9,7 +9,8 @@
             <hr>
 
             <ul class="sidenav-list">
-                <li [class.active]="sidenavFocus('dashboard')" routerLink="dashboard"> <mat-icon>space_dashboard</mat-icon>
+                <li [class.active]="sidenavFocus('dashboard')" routerLink="dashboard">
+                    <mat-icon>space_dashboard</mat-icon>
                     <p>Dashboard</p>
                 </li>
                 <li [class.active]="sidenavFocus('kanban')" routerLink="kanban"> <mat-icon>view_kanban</mat-icon>
@@ -18,7 +19,8 @@
                 <li [class.active]="sidenavFocus('user')" routerLink="user"> <mat-icon>group</mat-icon>
                     <p>User</p>
                 </li>
-                <li *ngIf="currentUserId && sidenavFocus('user/' + currentUserId)" [ngClass]="{'active': sidenavFocus('user/' + currentUserId)}"
+                <li *ngIf="currentUserId && sidenavFocus('user/' + currentUserId)"
+                    [ngClass]="{'active': sidenavFocus('user/' + currentUserId)}"
                     [routerLink]="'user/' + currentUserId">
                     <mat-icon class="turn-arrow">turn_right</mat-icon>
                     <p>{{ userName }}</p>

@@ -34,6 +34,10 @@
             background-color: lightgrey;
             border-radius: 100%;
             padding: 10px;
+
+            @media (max-width: 730px) {
+                height: 50px;
+            }
         }
     }
 }
@@ -70,12 +74,19 @@
         color: white;
         width: 50px;
         height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 
 .user-data-containers {
     display: flex;
     gap: 30px;
+
+    @media (max-width: 730px) {
+        flex-direction: column;
+    }
 }
 
 .user-list {
@@ -122,6 +133,13 @@
     right: 15px;
     cursor: pointer;
     padding: 10px 13px;
+
+    @media (max-width: 730px) {
+        position: relative;
+        top: unset;
+        right: unset;
+        padding: 0;
+    }
 }
 
 // Table 
@@ -154,6 +172,10 @@ table {
     font-weight: 100;
     margin-bottom: 30px !important;
 
+    @media (max-width: 600px) {
+        width: 500px;
+    }
+
     tr {
         box-sizing: border-box;
         display: flex;
@@ -180,7 +202,7 @@ tr:first-child {
 }
 
 .td-width {
-    width: 40% !important; 
+    width: 40% !important;
 }
 
 // filter 
@@ -202,6 +224,11 @@ tr:first-child {
 .set-purchase-totals {
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 730px) {
+        flex-direction: column;
+        gap: 20px;
+    }
 
     div {
         display: flex;
@@ -225,6 +252,10 @@ tr:first-child {
     padding: 20px;
     transition: all 125ms ease-in-out;
     margin: 0;
+
+    @media (max-width: 730px) {
+        width: unset;
+    }
 
     p {
         margin: 0;

@@ -1,6 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
 import { ChartComponent } from "ng-apexcharts";
-import { Product } from "src/models/products.class";
 import { User } from "src/models/user.class";
 import { DatabaseService } from "../database.service";
 
@@ -24,7 +23,6 @@ export class ChartUserResidenceComponent {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
   usersList: User[] = [];
-  products: Product[] = [];
   productCountsObject: any = {};
   mostPopularProduct: any;
   leastPopularProduct: any = 0;

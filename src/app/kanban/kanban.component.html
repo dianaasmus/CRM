@@ -25,7 +25,8 @@
 
                     <div class="product" cdkDrag *ngFor="let purchase of pendingArray">
 
-                        <mat-icon (click)="openStateDialog(purchase, doneList, inProgressList)" class="swap-state">swap_vert</mat-icon>
+                        <mat-icon (click)="openStateDialog(purchase, doneList, inProgressList)"
+                            class="swap-state">swap_vert</mat-icon>
 
                         <div class="purchase-container">
                             <p>{{ purchase.title }}</p> <br>
@@ -53,7 +54,8 @@
                 <div class="kanban-topic-lists">
                     <div class="product" cdkDrag *ngFor="let purchase of inProgressArray">
 
-                        <mat-icon (click)="openStateDialog(purchase, doneList, pendingList)" class="swap-state">swap_vert</mat-icon>
+                        <mat-icon (click)="openStateDialog(purchase, doneList, pendingList)"
+                            class="swap-state">swap_vert</mat-icon>
 
                         <div class="purchase-container">
                             <p>{{ purchase.title }}</p> <br>
@@ -81,7 +83,8 @@
                 <div class="kanban-topic-lists">
                     <div class="product" cdkDrag *ngFor="let purchase of doneArray">
 
-                        <mat-icon (click)="openStateDialog(purchase, pendingList, inProgressList)" class="swap-state">swap_vert</mat-icon>
+                        <mat-icon (click)="openStateDialog(purchase, pendingList, inProgressList)"
+                            class="swap-state">swap_vert</mat-icon>
 
                         <div class="purchase-container">
                             <p>{{ purchase.title }}</p> <br>

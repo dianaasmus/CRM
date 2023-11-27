@@ -68,7 +68,6 @@ export class ChartProductsSoldComponent {
   }
 
 
-
   updateChart() {
     if (this.usersList.length > 0) {
       const productCounts = this.countProductPurchases(this.usersList);

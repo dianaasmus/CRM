@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
@@ -5,7 +6,6 @@ import { filter } from 'rxjs/operators';
 import { User } from 'src/models/user.class';
 import { AuthService } from '../auth.service';
 import { DatabaseService } from '../database.service';
-import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
 
 
 
@@ -94,6 +94,5 @@ export class SidenavComponent implements OnInit {
       }
     });
   }
-
 
 }
