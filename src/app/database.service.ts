@@ -21,6 +21,12 @@ export class DatabaseService {
   }
 
 
+  /**
+   * Updates the purchase state of a user in Firestore.
+   * 
+   * @param {User} user - The user whose purchase state needs to be updated.
+   * @throws {Error} If there is an error during the update operation.
+   */
   async updateUserPurchaseState(user: User) {
     if (user.id) {
       const docRef = this.getSingleDocRef(user);
@@ -33,12 +39,23 @@ export class DatabaseService {
     }
   }
 
-  
+
+  /**
+   * Gets a reference to a single document in the 'users' collection in Firestore.
+   * 
+   * @param {User} user - The user for whom the document reference is needed.
+   * @returns {DocumentReference} Reference to the requested document.
+   */
   getSingleDocRef(user: User) {
     return doc(collection(this.firestore, 'users'), user.id);
   }
 
 
+  /**
+   * Subscribes to the 'users' collection in Firestore and updates the usersListSubject.
+   * 
+   * @private
+   */
   private subUsersList() {
     let ref = collection(this.firestore, 'users');
 
@@ -46,12 +63,17 @@ export class DatabaseService {
       const usersList: User[] = [];
       list.forEach((element) => {
         usersList.push(this.setUserObject(element.data(), element.id));
-      });            
+      });
       this.usersListSubject.next(usersList);
     });
   }
 
 
+  /**
+   * Subscribes to the 'products' collection in Firestore and updates the productsListSubject.
+   * 
+   * @private
+   */
   private subProductsList() {
     let ref = collection(this.firestore, 'products');
 
@@ -65,6 +87,14 @@ export class DatabaseService {
   }
 
 
+  /**
+   * Creates a User object using the provided properties.
+   * 
+   * @private
+   * @param {any} obj - The object containing user properties.
+   * @param {string} id - The ID of the user.
+   * @returns {User} The created User object.
+   */
   private setUserObject(obj: any, id: string): User {
     return {
       id: id,
@@ -80,6 +110,14 @@ export class DatabaseService {
   }
 
 
+  /**
+   * Creates a Product object using the provided properties.
+   * 
+   * @private
+   * @param {any} obj - The object containing product properties.
+   * @param {string} id - The ID of the product.
+   * @returns {Product} The created Product object.
+   */
   private setProductsObject(obj: any, id: string): Product {
     return {
       id: id,

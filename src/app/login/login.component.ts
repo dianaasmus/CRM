@@ -23,6 +23,9 @@ export class LoginComponent {
   }
 
 
+  /**
+   * Sets up the login form using Angular Reactive Forms.
+   */
   setLoginForm() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -31,6 +34,11 @@ export class LoginComponent {
   }
 
 
+  /**
+   * Attempts to sign in the user using provided email and password.
+   * 
+   * @throws {Error} If the provided credentials are invalid.
+   */
   async signIn() {
     this.loading = true;
     await signInWithEmailAndPassword(this.authService.auth, this.loginForm.value.email, this.loginForm.value.password)
@@ -52,6 +60,11 @@ export class LoginComponent {
   }
 
 
+  /**
+   * Attempts to sign in the user anonymously.
+   * 
+   * @throws {Error} If an error occurs during anonymous sign-in.
+   */
   async signInAnonymously() {
     this.loading = true;
     await signInAnonymously(this.authService.auth)
@@ -67,6 +80,9 @@ export class LoginComponent {
   }
 
 
+  /**
+   * Redirects the user to the dashboard after successful sign-in.
+   */
   redirectUser() {
     this.router.navigate(['/dashboard']);
   }

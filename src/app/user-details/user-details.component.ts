@@ -31,11 +31,17 @@ export class UserDetailsComponent {
   }
 
 
+  /**
+   * Opens a dialog to add a new purchase.
+   */
   openDialog(): void {
     this.dialog.open(DialogAddPurchaseComponent, { panelClass: 'custom-container' });
   }
 
 
+  /**
+   * Retrieves the user ID from the route snapshot, navigates using the AuthService, and subscribes to the user data.
+   */
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get("id");
     this.authService.navigate();
@@ -43,6 +49,9 @@ export class UserDetailsComponent {
   }
 
 
+  /**
+   * Subscribes to the user data in Firestore using the provided user ID.
+   */
   subscribeUser(): void {
     const userCollection = collection(this.firestore, 'users');
     const userDoc = doc(userCollection, this.userId);
@@ -51,6 +60,9 @@ export class UserDetailsComponent {
   }
 
 
+  /**
+   * Calculates the total revenue based on the user's purchases.
+   */
   checkPurchaseRevenue() {
     this.userData.purchases.forEach((purchase: any) => {
       if (purchase.amount > 1) {
@@ -63,6 +75,9 @@ export class UserDetailsComponent {
   }
 
 
+  /**
+   * Checks if there are added purchases for the user and calculates the total purchase amount and revenue.
+   */
   checkAddedPurchase() {
     if (this.userData.purchases.length !== 0) {
       this.NoAddedPurchases = true;
@@ -74,6 +89,11 @@ export class UserDetailsComponent {
   }
 
 
+  /**
+   * Handles the snapshot of user data received from Firestore and updates the user information.
+   * 
+   * @param {any} userSnapshot - The snapshot of user data from Firestore.
+   */
   handleUserSnapshot(userSnapshot: any): void {
     const userSnapshotData: any = userSnapshot.data();
     if (userSnapshotData) {
@@ -84,6 +104,9 @@ export class UserDetailsComponent {
   }
 
 
+  /**
+   * Opens a dialog to edit the about section of the user profile.
+   */
   editAbout() {
     const dialog = this.dialog.open(DialogEditAboutUserComponent, { panelClass: 'custom-container' });
     this.userData.id = this.userId;
@@ -92,12 +115,18 @@ export class UserDetailsComponent {
   }
 
 
+  /**
+   * Opens a dialog to edit the address of the user profile.
+   */
   editAddress() {
     const dialog = this.dialog.open(DialogEditAddressUserComponent, { panelClass: 'custom-container' });
     dialog.componentInstance.user = new User({ ...this.userData });
   }
 
 
+  /**
+   * Deletes the user profile and navigates to the user list.
+   */
   async deleteUser() {
     this.loading = true;
     await deleteDoc(this.getSingleDocRef(this.userId)).catch(
@@ -108,11 +137,20 @@ export class UserDetailsComponent {
   }
 
 
+  /**
+   * Redirects to the user list after deleting the user profile.
+   */
   redirectToUserList() {
     this.router.navigate(['user']);
   }
 
 
+  /**
+   * Gets a reference to a single document in the 'users' collection in Firestore.
+   * 
+   * @param {string} docId - The ID of the document.
+   * @returns {DocumentReference} Reference to the requested document.
+   */
   getSingleDocRef(docId: string) {
     return doc(collection(this.firestore, 'users'), docId);
   }

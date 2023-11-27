@@ -22,6 +22,11 @@ export class DialogAddUserComponent {
   constructor(public dialogRef: MatDialogRef<DialogAddUserComponent>) { }
 
 
+  /**
+   * Gets an error message based on the validation state of the email form control.
+   * 
+   * @returns {string} The error message.
+   */
   getErrorMessage() {
     if (this.email.hasError('required')) {
       return 'You must enter a value';
@@ -31,11 +36,17 @@ export class DialogAddUserComponent {
   }
 
 
+  /**
+   * Closes the dialog without making any changes.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
+  /**
+   * Adds a new user by setting the birthDate property, saving the user, and closing the dialog.
+   */
   addNewUser() {
     this.users.birthDate = this.birthDate.getTime();
     this.saveUser(this.users);
@@ -43,6 +54,11 @@ export class DialogAddUserComponent {
   }
 
 
+  /**
+   * Saves a user to the Firestore database.
+   * 
+   * @param {User} item - The user to be saved.
+   */
   async saveUser(item: User) {
     this.loading = true;
     const userData = { ...item };
@@ -59,11 +75,21 @@ export class DialogAddUserComponent {
   }
 
 
+  /**
+   * Retrieves a reference to the 'users' collection in Firestore.
+   * 
+   * @returns {any} A reference to the 'users' collection.
+   */
   getUserRef() {
     return collection(this.firestore, 'users');
   }
 
 
+  /**
+   * Gets the maximum date in the format 'YYYY-MM-DD' for date input controls.
+   * 
+   * @returns {string} The maximum date string.
+   */
   getMaxDate(): string {
     const currentDate = new Date();
     return `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;

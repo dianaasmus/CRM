@@ -8,9 +8,13 @@ import { AuthService } from '../auth.service';
 })
 export class LegalNoticeComponent {
 
-  constructor(private authService: AuthService) { }
   
+  constructor(private authService: AuthService) { }
 
+
+  /**
+   * Navigates using the AuthService.
+   */
   ngOnInit(): void {
     this.authService.navigate();
   }

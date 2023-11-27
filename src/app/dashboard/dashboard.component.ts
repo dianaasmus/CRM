@@ -20,10 +20,12 @@ export class DashboardComponent {
 
   constructor(
     private authService: AuthService,
-    private database: DatabaseService) 
-  { }
+    private database: DatabaseService) { }
 
 
+  /**
+   * Navigates to the appropriate route using the AuthService, subscribes to user and product lists, and checks purchase revenue.
+   */
   ngOnInit(): void {
     this.authService.navigate();
     this.subUsersList();
@@ -32,6 +34,9 @@ export class DashboardComponent {
   }
 
 
+  /**
+   * Subscribes to the usersList$ observable from the database and updates the usersList property.
+   */
   async subUsersList() {
     await this.database.usersList$.subscribe(usersList => {
       this.usersList = usersList;
@@ -39,6 +44,9 @@ export class DashboardComponent {
   }
 
 
+  /**
+   * Subscribes to the products$ observable from the database and updates the products property.
+   */
   async subProductsList() {
     await this.database.products$.subscribe(product => {
       this.products = product;
@@ -46,6 +54,9 @@ export class DashboardComponent {
   }
 
 
+  /**
+   * Subscribes to the usersList$ observable from the database, calculates the total revenue from user purchases, and updates the totalRevenue property.
+   */
   async checkPurchaseRevenue() {
     await this.database.usersList$.subscribe(users => {
       users.forEach(user => {

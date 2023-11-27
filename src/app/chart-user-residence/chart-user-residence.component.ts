@@ -33,6 +33,12 @@ export class ChartUserResidenceComponent {
   }
 
 
+  /**
+   * Counts the number of users in each city from the provided list of users.
+   * 
+   * @param {User[]} users - The list of users.
+   * @returns {Object} An object representing the count of users for each city.
+   */
   countCityUsers(users: User[]): { [city: string]: number } {
     const cityUserCountMap: { [city: string]: number } = {};
 
@@ -50,6 +56,9 @@ export class ChartUserResidenceComponent {
   }
 
 
+  /**
+   * Subscribes to the usersList$ observable from the database, updates the usersList, and triggers the implementation of the city users chart.
+   */
   async subUsersList() {
     await this.database.usersList$.subscribe(usersList => {
       this.usersList = usersList;
@@ -58,6 +67,9 @@ export class ChartUserResidenceComponent {
   }
 
 
+  /**
+   * Implements a bar chart displaying the user count for each city based on the provided cityUserCounts.
+   */
   implementChart() {
     const cityUserCounts = this.countCityUsers(this.usersList);
 

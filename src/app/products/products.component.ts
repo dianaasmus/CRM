@@ -11,19 +11,25 @@ export class ProductsComponent {
   products: any[] = [];
   @Input() input!: string;
   filteredData!: any[];
- 
+
 
   constructor(private authService: AuthService, private database: DatabaseService) { }
-  
 
+
+  /**
+   * Navigates using the AuthService and subscribes to the product list.
+   */
   ngOnInit(): void {
     this.authService.navigate();
     this.subProductsList();
   }
 
 
+  /**
+   * Filters the product data based on the input value.
+   */
   filterData() {
-    if (this.input) {      
+    if (this.input) {
       this.filteredData = this.products.filter(item => this.titleOrTypeOrPriceMatchesInput(item));
     } else {
       this.filteredData = this.products;
@@ -31,37 +37,61 @@ export class ProductsComponent {
   }
 
 
+  /**
+   * Checks if the title, type, or price of the given product matches the input.
+   * 
+   * @param {any} item - The product to be checked.
+   * @returns {boolean} True if the product matches the input, false otherwise.
+   */
   titleOrTypeOrPriceMatchesInput(item: any) {
-    return item.title.toLowerCase().includes(this.input.toLowerCase()) || 
-    item.type.toLowerCase().includes(this.input.toLowerCase()) || 
-    item.price.toLowerCase().includes(this.input.toLowerCase());
+    return item.title.toLowerCase().includes(this.input.toLowerCase()) ||
+      item.type.toLowerCase().includes(this.input.toLowerCase()) ||
+      item.price.toLowerCase().includes(this.input.toLowerCase());
   }
 
 
+  /**
+   * Subscribes to the products$ observable from the database and initializes and sorts the product list.
+   */
   subProductsList() {
     this.database.products$.subscribe(product => {
-      this.products = product;  
-      this.filteredData = product;  
-      this.sortByTitle();    
+      this.products = product;
+      this.filteredData = product;
+      this.sortByTitle();
     });
   }
 
 
+  /**
+   * Sorts the product list by title in ascending order.
+   * 
+   * @returns {any[]} The sorted product list.
+   */
   sortByTitle() {
     return this.products.sort((a, b) => a.title.localeCompare(b.title));
   }
 
 
+  /**
+   * Sorts the product list by type in ascending order.
+   * 
+   * @returns {any[]} The sorted product list.
+   */
   sortByType() {
     return this.products.sort((a, b) => a.type.localeCompare(b.type));
   }
 
 
+  /**
+   * Sorts the product list by price in ascending order.
+   * 
+   * @returns {any[]} The sorted product list.
+   */
   sortByPrice() {
     return this.products.sort((a, b) => {
       return a.value - b.value;
     });
   }
-  
+
 }
 

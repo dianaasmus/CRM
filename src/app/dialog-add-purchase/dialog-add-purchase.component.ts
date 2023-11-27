@@ -25,10 +25,12 @@ export class DialogAddPurchaseComponent {
 
   constructor(private database: DatabaseService,
     private router: Router,
-    public dialogRef: MatDialogRef<DialogAddPurchaseComponent>) 
-  { }
+    public dialogRef: MatDialogRef<DialogAddPurchaseComponent>) { }
 
 
+  /**
+   * Extracts the user ID from the current URL and updates the userId property.
+   */
   getUserId() {
     const currentUrl = this.router.url;
     const userIdMatch = currentUrl.match(/\/user\/([^\/]+)/);
@@ -40,6 +42,11 @@ export class DialogAddPurchaseComponent {
   }
 
 
+  /**
+   * Adds or removes a purchase from the selected product at the specified position.
+   * 
+   * @param {any} position - The position of the product in the list.
+   */
   addPurchases(position: any) {
     let purchase = this.products[position];
     const tr = document.getElementById('product' + position);
@@ -52,6 +59,12 @@ export class DialogAddPurchaseComponent {
   }
 
 
+  /**
+   * Removes a purchase from the user's purchase list and updates the user data.
+   * 
+   * @param {any} purchase - The purchase to be removed.
+   * @param {any} tr - The HTML table row element associated with the purchase.
+   */
   removePurchase(purchase: any, tr: any) {
     tr!.classList.remove('selected');
     this.getUserId();
@@ -66,6 +79,12 @@ export class DialogAddPurchaseComponent {
   }
 
 
+  /**
+   * Adds a purchase to the user's purchase list and updates the user data.
+   * 
+   * @param {any} purchase - The purchase to be added.
+   * @param {any} tr - The HTML table row element associated with the purchase.
+   */
   addPurchase(purchase: any, tr: any) {
     tr!.classList.add('selected');
     this.getUserId();
@@ -78,6 +97,12 @@ export class DialogAddPurchaseComponent {
   }
 
 
+  /**
+   * Sets a new purchase for the user and updates the user data.
+   * 
+   * @param {any} purchase - The purchase to be added.
+   * @param {any} user - The user to whom the purchase will be added.
+   */
   setNewPurchase(purchase: any, user: any) {
     this.user = user;
     purchase.purchaseUser = user.id;
@@ -85,6 +110,9 @@ export class DialogAddPurchaseComponent {
   }
 
 
+  /**
+   * Updates the user data in the Firestore database.
+   */
   async updateUser() {
     this.loading = true;
     if (this.userId) {
@@ -102,22 +130,37 @@ export class DialogAddPurchaseComponent {
   }
 
 
+  /**
+   * Retrieves a reference to a single user document in Firestore.
+   * 
+   * @returns {any} A reference to the user document.
+   */
   getSingleDocRef() {
     return doc(collection(this.firestore, 'users'), this.userId);
   }
 
 
+  /**
+   * Closes the dialog without making any changes.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
+  /**
+   * Lifecycle hook that is called after Angular has initialized all data-bound properties.
+   * Subscribes to product and user lists.
+   */
   ngOnInit(): void {
     this.subProductsList();
     this.subUsersList();
   }
 
 
+  /**
+   * Subscribes to the products$ observable from the database and updates the products property.
+   */
   subProductsList() {
     this.database.products$.subscribe(product => {
       this.products = product;
@@ -125,6 +168,9 @@ export class DialogAddPurchaseComponent {
   }
 
 
+  /**
+   * Subscribes to the usersList$ observable from the database and updates the usersList property.
+   */
   subUsersList() {
     this.database.usersList$.subscribe(user => {
       this.usersList = user;

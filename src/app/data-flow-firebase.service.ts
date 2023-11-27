@@ -33,6 +33,12 @@ export class DataFlowFirebaseService {
   }
 
 
+  /**
+   * Sends the usersList data to various components in the application.
+   * Unsubscribes from the user list observable.
+   * 
+   * @throws {Error} If there is an error during the user list subscription.
+   */
   async sendUser() {
     this.unsubUsersList = await this.subUsersList();
     this.dasboard.usersList = this.usersList;
@@ -41,17 +47,33 @@ export class DataFlowFirebaseService {
   }
 
 
+  /**
+   * Sends the products data to the ProductsComponent.
+   * Unsubscribes from the products list observable.
+   * 
+   * @throws {Error} If there is an error during the products list subscription.
+   */
   async sendProducts() {
     this.unsubProductsList = await this.subProductsList();
     this.productsComponent.products = this.products;
   }
 
 
+  /**
+   * Opens a dialog to add a new user.
+   */
   openDialog(): void {
     this.dialog.open(DialogAddUserComponent, { panelClass: 'custom-container' });
   }
 
 
+  /**
+   * Creates a Product object using the provided properties.
+   * 
+   * @param {any} obj - The object containing product properties.
+   * @param {string} id - The ID of the product.
+   * @returns {Product} The created Product object.
+   */
   setProductsObject(obj: any, id: string): Product {
     return {
       id: id,
@@ -66,6 +88,13 @@ export class DataFlowFirebaseService {
   }
 
 
+  /**
+   * Creates a User object using the provided properties.
+   * 
+   * @param {any} obj - The object containing user properties.
+   * @param {string} id - The ID of the user.
+   * @returns {User} The created User object.
+   */
   setUserObject(obj: any, id: string): User {
     return {
       id: id,
@@ -81,12 +110,21 @@ export class DataFlowFirebaseService {
   }
 
 
+  /**
+   * Lifecycle hook that is called before the component is destroyed.
+   * Unsubscribes from user and product list observables.
+   */
   ngOnDestroy(): void {
     this.unsubUsersList();
     this.unsubProductsList();
   }
 
 
+  /**
+   * Subscribes to the 'users' collection in Firestore and updates the usersList property.
+   * 
+   * @returns {Function} A function to unsubscribe from the user list observable.
+   */
   subUsersList() {
     let ref = collection(this.firestore, 'users');
     return onSnapshot(ref, (list) => {
@@ -98,6 +136,11 @@ export class DataFlowFirebaseService {
   }
 
 
+  /**
+   * Subscribes to the 'products' collection in Firestore and updates the products property.
+   * 
+   * @returns {Function} A function to unsubscribe from the product list observable.
+   */
   subProductsList() {
     let ref = collection(this.firestore, 'products');
     return onSnapshot(ref, (list) => {

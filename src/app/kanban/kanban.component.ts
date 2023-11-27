@@ -30,6 +30,13 @@ export class KanbanComponent {
   constructor(private authService: AuthService, private database: DatabaseService, private dialog: MatDialog) { }
 
 
+  /**
+   * Opens the state change dialog for a specific purchase.
+   * 
+   * @param {any} purchase - The purchase for which the state will be changed.
+   * @param {any} state1 - The first state option.
+   * @param {any} state2 - The second state option.
+   */
   openStateDialog(purchase: any, state1: any, state2: any) {
     const dialogData = {
       state1: state1,
@@ -43,12 +50,19 @@ export class KanbanComponent {
   }
 
 
+  /**
+   * Navigates using the AuthService and subscribes to the user list.
+   */
   ngOnInit(): void {
     this.authService.navigate();
     this.subUsersList();
   }
 
 
+
+  /**
+   * Filters purchase arrays based on the input value.
+   */
   filterData() {
     this.pendingArray = this.input ? this.matchesInput(this.pendingArray) : this.pendingArrayFilter;
     this.inProgressArray = this.input ? this.matchesInput(this.inProgressArray) : this.inProgressArrayFilter;
@@ -56,6 +70,12 @@ export class KanbanComponent {
   }
 
 
+  /**
+   * Filters an array based on the input value, considering both product title and user information.
+   * 
+   * @param {any} stateArray - The array to be filtered.
+   * @returns {any} The filtered array.
+   */
   matchesInput(stateArray: any) {
     const filteredItems = stateArray.filter((item: any) => {
       const titleMatches = item.title.toLowerCase().includes(this.input.toLowerCase());
@@ -80,6 +100,9 @@ export class KanbanComponent {
   }
 
 
+  /**
+   * Subscribes to the usersList$ observable from the database and initializes purchase categories.
+   */
   subUsersList() {
     this.database.usersList$.subscribe(usersList => {
       this.usersList = usersList;
@@ -88,11 +111,17 @@ export class KanbanComponent {
   }
 
 
+  /**
+   * Unsubscribes from the usersList$ observable to prevent memory leaks.
+   */
   ngOnDestroy(): void {
     this.subUsersList();
   }
 
 
+  /**
+   * Categorizes purchases into pending, in progress, and done arrays.
+   */
   categorizePurchases(): void {
     this.pendingArray = [];
     this.inProgressArray = [];
@@ -110,6 +139,11 @@ export class KanbanComponent {
   }
 
 
+  /**
+   * Adds a purchase to the appropriate category based on its state.
+   * 
+   * @param {Product} purchase - The purchase to be categorized.
+   */
   private addToCategory(purchase: Product): void {
     if (purchase.state === 'pending') {
       this.pendingArray.push(purchase);
@@ -121,12 +155,23 @@ export class KanbanComponent {
   }
 
 
+  /**
+   * Gets the full name of a user based on their ID.
+   * 
+   * @param {string} userId - The ID of the user.
+   * @returns {string} The full name of the user.
+   */
   getUserById(userId: string): any {
     const user = this.usersList.find(user => user.id === userId);
     return user!.firstName + ' ' + user!.lastName;
   }
 
 
+  /**
+   * Handles the drop event in the drag-and-drop functionality, updating purchase states and user information.
+   * 
+   * @param {CdkDragDrop<string[]>} event - The drop event.
+   */
   async drop(event: CdkDragDrop<string[]>) {
     const droppedPurchase = event.previousContainer.data[event.previousIndex] as any;
     const user = this.usersList.find(user => user.id === droppedPurchase.purchaseUser) as User;
@@ -136,6 +181,11 @@ export class KanbanComponent {
   }
 
 
+  /**
+   * Moves a purchase between arrays during the drag-and-drop operation.
+   * 
+   * @param {CdkDragDrop<string[]>} event - The drop event.
+   */
   assignPurchaseToState(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

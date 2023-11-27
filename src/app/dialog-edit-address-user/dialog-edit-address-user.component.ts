@@ -15,14 +15,23 @@ export class DialogEditAddressUserComponent {
   loading: boolean = false;
   userForm: any;
 
+  
   constructor(public dialogRef: MatDialogRef<UserDetailsComponent>) { }
 
 
+  /**
+   * Closes the current dialog without making any changes.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
 
+  /**
+   * Updates a user in the Firestore database.
+   * 
+   * @throws {Error} If the user ID is not provided.
+   */
   async updateUser() {
     this.loading = true;
     if (this.user.id) {
@@ -40,6 +49,11 @@ export class DialogEditAddressUserComponent {
   }
 
 
+  /**
+   * Retrieves a reference to a single user document in Firestore.
+   * 
+   * @returns {any} A reference to the user document.
+   */
   getSingleDocRef() {
     return doc(collection(this.firestore, 'users'), this.user.id);
   }

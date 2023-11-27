@@ -20,6 +20,9 @@ export class SignUpComponent {
   }
 
 
+  /**
+   * Sets up the sign-up form using Angular Reactive Forms, including custom password matching validation.
+   */
   setSignUpForm() {
     this.signupForm = this.formbuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,6 +32,12 @@ export class SignUpComponent {
   }
 
 
+  /**
+   * Custom validator function to check if the password and confirmPassword fields match.
+   * 
+   * @param {FormGroup} formGroup - The form group containing the password and confirmPassword fields.
+   * @returns {null | { passwordMismatch: true }} Null if the passwords match, otherwise an object indicating a password mismatch.
+   */
   passwordMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
@@ -36,6 +45,11 @@ export class SignUpComponent {
   }
 
 
+  /**
+   * Attempts to sign up a new user using the provided email and password.
+   * 
+   * @throws {Error} If there is an error during the sign-up process.
+   */
   async signUp() {
     this.loading = true;
     const email = this.signupForm.get('email')?.value;
@@ -57,6 +71,9 @@ export class SignUpComponent {
   }
 
 
+  /**
+   * Redirects the user to the dashboard after successful sign-up.
+   */
   redirectUser() {
     this.router.navigate(['/dashboard']);
   }

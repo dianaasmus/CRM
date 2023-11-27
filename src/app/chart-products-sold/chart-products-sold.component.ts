@@ -35,6 +35,9 @@ export class ChartProductsSoldComponent {
   }
 
 
+  /**
+   * Finds the key with the maximum value in the product counts object and updates the mostPopularProduct property.
+   */
   findMaxKey() {
     let maxKey = null;
     let maxValue = 0;
@@ -52,6 +55,11 @@ export class ChartProductsSoldComponent {
   }
 
 
+  /**
+   * Finds the key with the minimum value, given the maxKey, in the product counts object and updates the leastPopularProduct property.
+   * 
+   * @param {any} maxKey - The maximum key value obtained from findMaxKey.
+   */
   findMinKey(maxKey: any) {
     let minKey = null;
     let minValue = maxKey;
@@ -68,6 +76,9 @@ export class ChartProductsSoldComponent {
   }
 
 
+  /**
+   * Updates the chart options with the latest data from the users list.
+   */
   updateChart() {
     if (this.usersList.length > 0) {
       const productCounts = this.countProductPurchases(this.usersList);
@@ -80,6 +91,12 @@ export class ChartProductsSoldComponent {
   }
 
 
+  /**
+   * Counts the number of purchases for each product in the given list of users.
+   * 
+   * @param {User[]} users - The list of users.
+   * @returns {Object} An object representing the count of purchases for each product.
+   */
   countProductPurchases(users: User[]): { [productName: string]: number } {
     const productCountMap: { [productName: string]: number } = {};
 
@@ -96,6 +113,9 @@ export class ChartProductsSoldComponent {
   }
 
 
+  /**
+   * Subscribes to the usersList$ observable from the database and updates the usersList, triggering a chart update.
+   */
   async subUsersList() {
     await this.database.usersList$.subscribe(usersList => {
       this.usersList = usersList;
@@ -104,6 +124,9 @@ export class ChartProductsSoldComponent {
   }
 
 
+  /**
+   * Sets up the initial chart options for display.
+   */
   implementChart() {
     this.chartOptions = {
       series: [],

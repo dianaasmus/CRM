@@ -31,16 +31,27 @@ export class SidenavComponent implements OnInit {
   }
 
 
+  /**
+   * Logs the user out by signing them out.
+   */
   logout() {
     this.authService.signOutUser();
   }
 
 
+  /**
+   * Checks if the screen size is considered small based on the breakpoint observer.
+   * 
+   * @returns {boolean} True if the screen is considered small, false otherwise.
+   */
   isSmallScreen() {
-   return this.breakpointObserver.isMatched('(max-width: 1000px)');
+    return this.breakpointObserver.isMatched('(max-width: 1000px)');
   }
 
 
+  /**
+   * Subscribes to router events to manage the visibility of the navbar based on the current route.
+   */
   ngOnInit() {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
@@ -57,6 +68,9 @@ export class SidenavComponent implements OnInit {
   }
 
 
+  /**
+   * Toggles the visibility of the drawer in the UI.
+   */
   toggleDrawer() {
     if (this.drawer) {
       this.drawer.toggle();
@@ -64,11 +78,20 @@ export class SidenavComponent implements OnInit {
   }
 
 
+  /**
+   * Checks if the provided router link is the currently active route.
+   * 
+   * @param {string} routerLink - The router link to check.
+   * @returns {boolean} True if the provided router link is the currently active route, false otherwise.
+   */
   sidenavFocus(routerLink: string) {
     return this.router.isActive(routerLink, true);
   }
 
 
+  /**
+   * Subscribes to router events to track changes in the URL.
+   */
   subURL() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -79,6 +102,9 @@ export class SidenavComponent implements OnInit {
   }
 
 
+  /**
+   * Subscribes to the usersList$ observable from the database and updates the usersList property.
+   */
   subUsersList() {
     this.database.usersList$.subscribe(usersList => {
       this.usersList = usersList;
@@ -86,6 +112,9 @@ export class SidenavComponent implements OnInit {
   }
 
 
+  /**
+   * Gets user information based on the current URL and updates relevant properties.
+   */
   getUserFromId() {
     this.usersList.forEach(user => {
       if (this.currentUrl == "/user/" + user.id) {

@@ -25,6 +25,9 @@ export class DialogChangeStateComponent {
   constructor(private database: DatabaseService, @Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<DialogChangeStateComponent>) { }
 
 
+  /**
+   * Subscribes to the usersList$ observable from the database and updates the usersList property.
+   */
   subUsersList() {
     this.database.usersList$.subscribe(usersList => {
       this.usersList = usersList;
@@ -32,11 +35,17 @@ export class DialogChangeStateComponent {
   }
 
 
+  /**
+   * Unsubscribes from the usersList$ observable to prevent memory leaks.
+   */
   ngOnDestroy(): void {
     this.subUsersList();
   }
 
 
+  /**
+   * Subscribes to user lists and initializes component data from the input data.
+   */
   ngOnInit() {
     this.subUsersList();
     this.state1Data = this.data.state1;
@@ -45,6 +54,11 @@ export class DialogChangeStateComponent {
   }
 
 
+  /**
+   * Changes the state of a purchase and updates the corresponding user in the database.
+   * 
+   * @param {any} state - The new state for the purchase.
+   */
   changeState(state: any) {
     const user = this.usersList.find(user => user.id === this.purchase.purchaseUser) as User;
     this.purchase.state = state.id;
