@@ -39,6 +39,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { SignUpComponent } from './sign-up/sign-up.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { DialogChangeStateComponent } from './dialog-change-state/dialog-change-state.component';
 
 
 
@@ -60,7 +62,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     SidenavComponent,
     UserComponent,
     UserDetailsComponent,
-    SignUpComponent
+    SignUpComponent,
+    DialogChangeStateComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatMenuModule,
     MatTreeModule,
     DragDropModule,
+    MatSnackBarModule,
     provideFirebaseApp(() => initializeApp({ "projectId": "simple-crm-2d008", "appId": "1:651292357158:web:1c0159cd692e3691d8ece7", "storageBucket": "simple-crm-2d008.appspot.com", "apiKey": "AIzaSyBBz_Mh-ZK_uL81UfYcn_TajI_nBadb7xY", "authDomain": "simple-crm-2d008.firebaseapp.com", "messagingSenderId": "651292357158" })),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

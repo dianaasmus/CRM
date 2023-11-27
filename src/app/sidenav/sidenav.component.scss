@@ -10,6 +10,17 @@
 .mat-drawer-content {
     overflow-y: auto;
     overflow-x: hidden;
+
+    @media (max-width: 1000px) {
+        margin-left: 0px !important;
+    }
+}
+
+.marginLeft {
+    @media (max-width: 1000px) {
+        margin-left: 270px !important;
+        transition: all 225ms ease;
+    }
 }
 
 .sidenav {

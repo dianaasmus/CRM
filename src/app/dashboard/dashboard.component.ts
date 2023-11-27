@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Product } from 'src/models/products.class';
 import { User } from 'src/models/user.class';
-import { DatabaseService } from '../database.service';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { DatabaseService } from '../database.service';
 
 
 
@@ -19,8 +18,11 @@ export class DashboardComponent {
   totalRevenue: number = 0;
 
 
-  constructor(private authService: AuthService, private router: Router, private database: DatabaseService) { }
-  
+  constructor(
+    private authService: AuthService,
+    private database: DatabaseService) 
+  { }
+
 
   ngOnInit(): void {
     this.authService.navigate();

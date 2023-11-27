@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { initializeApp } from '@angular/fire/app';
 import { createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { getAuth } from "firebase/auth";
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -12,27 +11,19 @@ import { getAuth } from "firebase/auth";
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-  firebaseConfig = {
-    apiKey: "AIzaSyBBz_Mh-ZK_uL81UfYcn_TajI_nBadb7xY",
-    authDomain: "simple-crm-2d008.firebaseapp.com",
-    projectId: "simple-crm-2d008",
-    storageBucket: "simple-crm-2d008.appspot.com",
-    messagingSenderId: "651292357158",
-    appId: "1:651292357158:web:1c0159cd692e3691d8ece7",
-  };
-  app = initializeApp(this.firebaseConfig);
-  auth = getAuth(this.app);
-  loading: boolean = false; // _____________________________________________
+  loading: boolean = false;
   signupForm!: FormGroup;
 
 
-  constructor(private router: Router, private formbuilder: FormBuilder) { }
+  constructor(private router: Router, private formbuilder: FormBuilder, private authService: AuthService) {
+    this.setSignUpForm();
+  }
 
 
-  ngOnInit() {
+  setSignUpForm() {
     this.signupForm = this.formbuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)] ],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
     }, { validators: this.passwordMatchValidator });
   }
@@ -45,12 +36,12 @@ export class SignUpComponent {
   }
 
 
-  signUp() {
+  async signUp() {
     this.loading = true;
     const email = this.signupForm.get('email')?.value;
     const password = this.signupForm.get('password')?.value;
 
-    createUserWithEmailAndPassword(this.auth, email, password)
+    await createUserWithEmailAndPassword(this.authService.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
       })
@@ -60,6 +51,7 @@ export class SignUpComponent {
       })
       .finally(() => {
         this.loading = false;
+        this.authService.openSnackBar('Registration was successful!');
         this.redirectUser();
       });
   }

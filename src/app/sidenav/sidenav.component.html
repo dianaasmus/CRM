@@ -1,6 +1,5 @@
 <mat-drawer-container class="sidenav-menu-container" autosize>
 
-
     <mat-drawer #drawer class="sidenav d-none" id="drawer" [opened]="isSmallScreen() ? false : true" mode="side">
         <div class="sidenav-inner-container">
             <div class="logo-container">
@@ -38,7 +37,7 @@
     <mat-drawer-content>
 
         <div class="menu-container d-none" id="menu">
-            <mat-toolbar-row class="toolbar-row">
+            <mat-toolbar-row class="toolbar-row" [class.marginLeft]="drawer.opened">
                 <mat-icon type="button" mat-button (click)="toggleDrawer()">menu</mat-icon>
             </mat-toolbar-row>
 

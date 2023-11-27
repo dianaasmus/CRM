@@ -1,7 +1,7 @@
 <div class="kanban" [ngStyle]="{'max-width': '1000px'}">
 
     <div class="kanban-header">
-        <h1><mat-icon>group</mat-icon>Products kanban</h1>
+        <h1><mat-icon>view_kanban</mat-icon>Products kanban</h1>
         <div class="search-container">
             <input [(ngModel)]="input" (ngModelChange)="filterData()" class="input-search" placeholder="Search"
                 type="text">
@@ -24,6 +24,8 @@
                 <div class="kanban-topic-lists">
 
                     <div class="product" cdkDrag *ngFor="let purchase of pendingArray">
+
+                        <mat-icon (click)="openStateDialog(purchase, doneList, inProgressList)" class="swap-state">swap_vert</mat-icon>
 
                         <div class="purchase-container">
                             <p>{{ purchase.title }}</p> <br>
@@ -51,6 +53,8 @@
                 <div class="kanban-topic-lists">
                     <div class="product" cdkDrag *ngFor="let purchase of inProgressArray">
 
+                        <mat-icon (click)="openStateDialog(purchase, doneList, pendingList)" class="swap-state">swap_vert</mat-icon>
+
                         <div class="purchase-container">
                             <p>{{ purchase.title }}</p> <br>
                             <p>{{ purchase.value | currency:'$ ':'code' }}</p>
@@ -61,7 +65,7 @@
                     </div>
                 </div>
 
-                <div class="empty-list" *ngIf="inProgressArray.length === 0">No purchases pending</div>
+                <div class="empty-list" *ngIf="inProgressArray.length === 0">No purchases in progress</div>
             </div>
         </mat-card>
 
@@ -77,6 +81,8 @@
                 <div class="kanban-topic-lists">
                     <div class="product" cdkDrag *ngFor="let purchase of doneArray">
 
+                        <mat-icon (click)="openStateDialog(purchase, pendingList, inProgressList)" class="swap-state">swap_vert</mat-icon>
+
                         <div class="purchase-container">
                             <p>{{ purchase.title }}</p> <br>
                             <p>{{ purchase.value | currency:'$ ':'code' }}</p>
@@ -87,7 +93,7 @@
                     </div>
                 </div>
 
-                <div class="empty-list" *ngIf="doneArray.length === 0">No purchases pending</div>
+                <div class="empty-list" *ngIf="doneArray.length === 0">No purchases done</div>
             </div>
         </mat-card>
     </div>

@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { User } from 'src/models/user.class';
-import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot, doc } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from 'src/models/products.class';
-
+import { updateDoc } from 'firebase/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +18,23 @@ export class DatabaseService {
   constructor() {
     this.subUsersList();
     this.subProductsList();
+  }
+
+
+  async updateUserPurchaseState(user: User) {
+    if (user.id) {
+      const docRef = this.getSingleDocRef(user);
+      const userJSON = JSON.stringify(user);
+      try {
+        await updateDoc(docRef, JSON.parse(userJSON));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
+  getSingleDocRef(user: User) {
+    return doc(collection(this.firestore, 'users'), user.id);
   }
 
 

@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { Product } from 'src/models/products.class';
 import { ProductsComponent } from './products/products.component';
 import { DialogAddPurchaseComponent } from './dialog-add-purchase/dialog-add-purchase.component';
+import { DialogChangeStateComponent } from './dialog-change-state/dialog-change-state.component';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +23,11 @@ export class DataFlowFirebaseService {
   unsubProductsList: any;
 
 
-  constructor(public dialog: MatDialog, 
+  constructor(public dialog: MatDialog,
     private dasboard: DashboardComponent,
     private addPurchase: DialogAddPurchaseComponent,
-    private productsComponent: ProductsComponent) {
+    private productsComponent: ProductsComponent,
+    private dialogChangeState: DialogChangeStateComponent) {
     this.sendUser();
     this.sendProducts();
   }
@@ -35,9 +37,10 @@ export class DataFlowFirebaseService {
     this.unsubUsersList = await this.subUsersList();
     this.dasboard.usersList = this.usersList;
     this.addPurchase.usersList = this.usersList;
+    this.dialogChangeState.usersList = this.usersList;
   }
 
-  
+
   async sendProducts() {
     this.unsubProductsList = await this.subProductsList();
     this.productsComponent.products = this.products;
@@ -85,28 +88,23 @@ export class DataFlowFirebaseService {
 
 
   subUsersList() {
-    let ref = collection(this.firestore, 'users'); // Pfad angeben
-    // const q = query(ref, limit(16)); // filter, der in den onSnapshot eingebunden wird -- !! limit = maximum
-    return onSnapshot(ref, (list) => { // der notesRef ist in query drinnen
+    let ref = collection(this.firestore, 'users');
+    return onSnapshot(ref, (list) => {
       this.usersList = [];
       list.forEach((element) => {
         this.usersList.push(this.setUserObject(element.data(), element.id));
       });
-      console.log(this.usersList);
-      // this.sendUser();
     });
   }
 
 
   subProductsList() {
     let ref = collection(this.firestore, 'products');
-    // const q = query(ref, limit(16));
     return onSnapshot(ref, (list) => {
       this.products = [];
       list.forEach((element) => {
         this.products.push(this.setProductsObject(element.data(), element.id));
       });
-      console.log(this.products);
     });
   }
 }

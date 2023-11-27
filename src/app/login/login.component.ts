@@ -1,14 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { initializeApp } from '@angular/fire/app';
-import { signInAnonymously, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut } from '@angular/fire/auth';
-import { Firestore } from '@angular/fire/firestore';
-import { getAuth, fetchSignInMethodsForEmail } from "firebase/auth";
-import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { Component } from '@angular/core';
+import { signInAnonymously, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Auth, User } from 'firebase/auth';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 
 
@@ -18,41 +12,30 @@ import { Auth, User } from 'firebase/auth';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
-  firestore: Firestore = inject(Firestore);
-  firebaseConfig = {
-    apiKey: "AIzaSyBBz_Mh-ZK_uL81UfYcn_TajI_nBadb7xY",
-    authDomain: "simple-crm-2d008.firebaseapp.com",
-    projectId: "simple-crm-2d008",
-    storageBucket: "simple-crm-2d008.appspot.com",
-    messagingSenderId: "651292357158",
-    appId: "1:651292357158:web:1c0159cd692e3691d8ece7",
-  };
-  app = initializeApp(this.firebaseConfig);
-  auth: Auth = getAuth(this.app);
-  provider = new GoogleAuthProvider();
-  loading: boolean = false; // _____________________________________________
+  loading: boolean = false;
   login: boolean = false;
-  loginForm: FormGroup;
+  loginForm!: FormGroup;
   userNotFound: boolean = false;
 
 
-  constructor(private router: Router, private authService: AuthService, private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
+  constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder) {
+    this.setLoginForm();
+  }
+
+
+  setLoginForm() {
+    this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
 
 
-
-  signIn() {
-    signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password)
+  async signIn() {
+    this.loading = true;
+    await signInWithEmailAndPassword(this.authService.auth, this.loginForm.value.email, this.loginForm.value.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        this.loginForm.reset();
-        this.redirectUser();
       })
       .catch((error) => {
         if (error.code === 'auth/invalid-login-credentials') {
@@ -60,19 +43,26 @@ export class LoginComponent {
         } else {
           console.log(error);
         }
+      })
+      .finally(() => {
+        this.loading = false;
+        this.authService.openSnackBar('Logged in successfully!');
+        this.redirectUser();
       });
   }
 
 
-  signInAnonymously() {
-    signInAnonymously(this.auth)
-      .then(() => {
-        this.authService.navigate();
-        this.router.navigate(['/dashboard']);
-      })
+  async signInAnonymously() {
+    this.loading = true;
+    await signInAnonymously(this.authService.auth)
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+      })
+      .finally(() => {
+        this.loading = false;
+        this.authService.openSnackBar('Logged in as Guest!');
+        this.redirectUser();
       });
   }
 

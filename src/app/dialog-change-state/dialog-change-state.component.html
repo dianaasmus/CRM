@@ -1,0 +1,9 @@
+<mat-card class="dialog-container">
+    <h1>Change Purchase State</h1>
+    <button cdkDrag [cdkDragData]="data.state1" (click)="changeState(data.state1)">
+        <h2>{{ data.state1.id }}</h2>
+    </button>
+    <button cdkDrag [cdkDragData]="data.state2" (click)="changeState(data.state2)">
+        <h2>{{ data.state2.id }}</h2>
+    </button>
+</mat-card>

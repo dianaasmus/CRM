@@ -6,6 +6,8 @@ import { DatabaseService } from '../database.service';
 import { updateDoc } from 'firebase/firestore';
 import { Product } from 'src/models/products.class';
 import { AuthService } from '../auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogChangeStateComponent } from '../dialog-change-state/dialog-change-state.component';
 
 
 
@@ -26,8 +28,21 @@ export class KanbanComponent {
   firestore: Firestore = inject(Firestore);
 
 
-  constructor(private authService: AuthService, private database: DatabaseService) { }
-  
+  constructor(private authService: AuthService, private database: DatabaseService, private dialog: MatDialog) { }
+
+
+  openStateDialog(purchase: any, state1: any, state2: any) {
+    const dialogData = {
+      state1: state1,
+      state2: state2,
+      purchase: purchase
+    };
+
+    this.dialog.open(DialogChangeStateComponent, {
+      data: dialogData
+    });
+  }
+
 
   ngOnInit(): void {
     this.authService.navigate();
@@ -45,12 +60,12 @@ export class KanbanComponent {
   matchesInput(stateArray: any) {
     const filteredItems = stateArray.filter((item: any) => {
       const titleMatches = item.title.toLowerCase().includes(this.input.toLowerCase());
-  
+
       if (titleMatches) {
         return true;
       } else {
         const matchingUser = this.usersList.find(user => user.id === item.purchaseUser) as User;
-  
+
         if (matchingUser) {
           return (
             matchingUser.firstName.toLowerCase().includes(this.input.toLowerCase()) ||
@@ -61,7 +76,7 @@ export class KanbanComponent {
         }
       }
     });
-  
+
     return filteredItems;
   }
 
@@ -118,7 +133,7 @@ export class KanbanComponent {
     const user = this.usersList.find(user => user.id === droppedPurchase.purchaseUser) as User;
     droppedPurchase.state = event.container.id;
     this.assignPurchaseToState(event)
-    this.updateUserPurchaseState(user);
+    this.database.updateUserPurchaseState(user);
   }
 
 
@@ -133,24 +148,6 @@ export class KanbanComponent {
         event.currentIndex,
       );
     }
-  }
-
-
-  async updateUserPurchaseState(user: User) {
-    if (user.id) {
-      const docRef = this.getSingleDocRef(user);
-      const userJSON = JSON.stringify(user);
-      try {
-        await updateDoc(docRef, JSON.parse(userJSON));
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  }
-
-
-  getSingleDocRef(user: User) {
-    return doc(collection(this.firestore, 'users'), user.id);
   }
 
 }
