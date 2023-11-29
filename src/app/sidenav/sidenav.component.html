@@ -9,26 +9,26 @@
             <hr>
 
             <ul class="sidenav-list">
-                <li [class.active]="sidenavFocus('dashboard')" routerLink="dashboard">
+                <li [class.active]="sidenavFocus('dashboard')" (click)="openLinkCloseNav('dashboard')">
                     <mat-icon>space_dashboard</mat-icon>
                     <p>Dashboard</p>
                 </li>
-                <li [class.active]="sidenavFocus('kanban')" routerLink="kanban"> <mat-icon>view_kanban</mat-icon>
+                <li [class.active]="sidenavFocus('kanban')" (click)="openLinkCloseNav('kanban')"> <mat-icon>view_kanban</mat-icon>
                     <p>Kanban</p>
                 </li>
-                <li [class.active]="sidenavFocus('user')" routerLink="user"> <mat-icon>group</mat-icon>
+                <li [class.active]="sidenavFocus('user')" (click)="openLinkCloseNav('user')"> <mat-icon>group</mat-icon>
                     <p>User</p>
                 </li>
                 <li *ngIf="currentUserId && sidenavFocus('user/' + currentUserId)"
                     [ngClass]="{'active': sidenavFocus('user/' + currentUserId)}"
-                    [routerLink]="'user/' + currentUserId">
+                    (click)="openLinkCloseNav('user/' + currentUserId)">
                     <mat-icon class="turn-arrow">turn_right</mat-icon>
                     <p>{{ userName }}</p>
                 </li>
-                <li [class.active]="sidenavFocus('products')" routerLink="products"> <mat-icon>inventory_2</mat-icon>
+                <li [class.active]="sidenavFocus('products')" (click)="openLinkCloseNav('products')"> <mat-icon>inventory_2</mat-icon>
                     <p>Products</p>
                 </li>
-                <li class="pos-absolut" [class.active]="sidenavFocus('legal-notice')" routerLink="legal-notice">
+                <li class="pos-absolut" [class.active]="sidenavFocus('legal-notice')" (click)="openLinkCloseNav('legal-notice')">
                     <mat-icon>gpp_maybe</mat-icon>
                     <p>Legal Notice</p>
                 </li>

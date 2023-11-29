@@ -84,6 +84,14 @@ mat-card {
 }
 
 #chart {
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
+    padding: 10px 0; 
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 580px) {
+        overflow-x: auto;
+        justify-content: unset;
+    }
 }

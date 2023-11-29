@@ -8,6 +8,9 @@
         <h1>Login</h1>
 
         <form (ngSubmit)="signIn()" [formGroup]="loginForm" *ngIf="login">
+
+            <mat-icon class="arrow-back" matTooltip="Login Options" (click)="login = false">arrow_back_ios</mat-icon>
+
             <div class="form-group">
                 <mat-form-field class="input-outline" appearance="outline"
                     [class.mat-form-field-invalid]="userNotFound">
@@ -44,7 +47,7 @@
             <button (click)="signInAnonymously()"><mat-icon>admin_panel_settings</mat-icon>Guest Login</button>
         </div>
 
-        <p>New here? <a href="/sign-up">Sign up</a></p>
+        <p>New here? <a routerLink="sign-up">Sign up</a></p>
 
     </mat-card>
 </div>

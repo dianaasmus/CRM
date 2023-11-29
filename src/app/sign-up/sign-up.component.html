@@ -27,7 +27,7 @@
                         required>
                 </mat-form-field>
                 <div class="input-feedback"
-                    *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.hasError('invalidEmail')">
+                    *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.hasError('minlength')">
                     Password must be at least {{ signupForm.get('password')?.errors?.['minlength']?.requiredLength }}
                     characters long.
                 </div>
@@ -37,7 +37,7 @@
                 <mat-form-field class="input-outline" appearance="outline">
                     <mat-label type="password" for="confirmPassword" class="label">Confirm Password</mat-label>
                     <input matInput type="password" id="confirmPassword" formControlName="confirmPassword"
-                        autocomplete="ne-password" required>
+                        autocomplete="new-password" required>
                 </mat-form-field>
 
                 <div class="input-feedback"
@@ -49,7 +49,7 @@
             <button type="submit" [disabled]="signupForm.invalid">Sign up</button>
         </form>
 
-        <p>Already have an account? <a href="/">Log in</a></p>
+        <p>Already have an account? <a routerLink="/">Log in</a></p>
 
     </mat-card>
 </div>

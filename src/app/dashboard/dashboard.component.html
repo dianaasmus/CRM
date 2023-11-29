@@ -6,14 +6,14 @@
 <div [ngStyle]="{'max-width': '1000px'}">
     <div class="overview" #overView>
 
-        <mat-card>
+        <mat-card [ngStyle]="{'cursor': 'pointer'}" routerLink="/user">
             <mat-card-content>
                 <span><mat-icon>group</mat-icon> User</span>
                 <p>{{ usersList.length }}</p>
             </mat-card-content>
         </mat-card>
 
-        <mat-card>
+        <mat-card [ngStyle]="{'cursor': 'pointer'}" routerLink="/products">
             <mat-card-content>
                 <span><mat-icon>inventory_2</mat-icon> Products</span>
                 <p>{{ products.length }}</p>

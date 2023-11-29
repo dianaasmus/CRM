@@ -40,6 +40,13 @@ form {
     gap: 15px;
 }
 
+.arrow-back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    cursor: pointer;
+}
+
 .label-input {
     color: white;
     display: flex;

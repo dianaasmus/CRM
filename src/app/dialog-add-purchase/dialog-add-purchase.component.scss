@@ -32,7 +32,7 @@ form {
 
 .mat-card-content {
     height: 400px;
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 table {
@@ -56,7 +56,6 @@ tr {
         text-align: left;
     }
 }
-
 
 .th {
     font-weight: 400;

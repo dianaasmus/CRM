@@ -32,6 +32,19 @@ export class SidenavComponent implements OnInit {
 
 
   /**
+   * Closes the drawer and navigates to a new route.
+   */  
+  openLinkCloseNav(link: any) {
+    if (this.isSmallScreen()) {
+      this.drawer.opened = false
+      this.router.navigate([link]);
+    } else {
+      this.router.navigate([link]);
+    }
+  }
+
+
+  /**
    * Logs the user out by signing them out.
    */
   logout() {
