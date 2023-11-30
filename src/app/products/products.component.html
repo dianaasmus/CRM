@@ -15,9 +15,9 @@
         <div [ngStyle]="{'width': '100%'}">
             <p>Filter by:</p>
             <div class="set-products-filter">
-                <p (click)="sortByTitle()" class="set-products-filter-p">Title</p>
-                <p (click)="sortByType()" class="set-products-filter-p">Type</p>
-                <p (click)="sortByPrice()" class="set-products-filter-p">Price</p>
+                <p (click)="sortByTitle()" [class.selected]="selectedFilter === 'title'" class="set-products-filter-p">Title</p>
+                <p (click)="sortByType()" [class.selected]="selectedFilter === 'type'" class="set-products-filter-p">Type</p>
+                <p (click)="sortByPrice()" [class.selected]="selectedFilter === 'price'" class="set-products-filter-p">Price</p>
             </div>
         </div>
     </div>

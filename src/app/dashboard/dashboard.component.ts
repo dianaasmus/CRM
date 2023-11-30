@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from 'src/models/products.class';
 import { User } from 'src/models/user.class';
-import { AuthService } from '../auth.service';
 import { DatabaseService } from '../database.service';
 
 
@@ -18,16 +17,13 @@ export class DashboardComponent {
   totalRevenue: number = 0;
 
 
-  constructor(
-    private authService: AuthService,
-    private database: DatabaseService) { }
+  constructor(private database: DatabaseService) { }
 
 
   /**
    * Navigates to the appropriate route using the AuthService, subscribes to user and product lists, and checks purchase revenue.
    */
   ngOnInit(): void {
-    this.authService.navigate();
     this.subUsersList();
     this.subProductsList();
     this.checkPurchaseRevenue();

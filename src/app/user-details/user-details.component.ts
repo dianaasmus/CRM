@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Firestore, collection, deleteDoc, doc, onSnapshot } from '@angular/fire/firestore';
-import { User } from 'src/models/user.class';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/models/user.class';
+import { DialogAddPurchaseComponent } from '../dialog-add-purchase/dialog-add-purchase.component';
 import { DialogEditAboutUserComponent } from '../dialog-edit-about-user/dialog-edit-about-user.component';
 import { DialogEditAddressUserComponent } from '../dialog-edit-address-user/dialog-edit-address-user.component';
-import { DialogAddPurchaseComponent } from '../dialog-add-purchase/dialog-add-purchase.component';
-import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -26,7 +25,7 @@ export class UserDetailsComponent {
   totalRevenue: number = 0;
 
 
-  constructor(private route: ActivatedRoute, private authService: AuthService,
+  constructor(private route: ActivatedRoute,
     public dialog: MatDialog, public router: Router) {
   }
 
@@ -44,7 +43,6 @@ export class UserDetailsComponent {
    */
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get("id");
-    this.authService.navigate();
     this.subscribeUser();
   }
 

@@ -38,7 +38,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTreeModule } from '@angular/material/tree';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { NgApexchartsModule } from "ng-apexcharts";
-import { SignUpComponent } from './sign-up/sign-up.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { DialogChangeStateComponent } from './dialog-change-state/dialog-change-state.component';
 
@@ -62,7 +61,6 @@ import { DialogChangeStateComponent } from './dialog-change-state/dialog-change-
     SidenavComponent,
     UserComponent,
     UserDetailsComponent,
-    SignUpComponent,
     DialogChangeStateComponent
   ],
   imports: [

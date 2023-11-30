@@ -19,9 +19,9 @@
         <div [ngStyle]="{'width': '100%'}">
             <p>Filter by:</p>
             <div class="set-user-filter">
-                <button class="set-user-filter-p" (click)="sortUsersByFirstName()">First Name</button>
-                <button class="set-user-filter-p" (click)="sortUsersByLastName()">Last Name</button>
-                <button class="set-user-filter-p" (click)="sortUsersByCity()">City</button>
+                <button class="set-user-filter-p" [class.selected]="selectedFilter === 'firstName'" (click)="sortUsersByFirstName()">First Name</button>
+                <button class="set-user-filter-p" [class.selected]="selectedFilter === 'lastName'" (click)="sortUsersByLastName()">Last Name</button>
+                <button class="set-user-filter-p" [class.selected]="selectedFilter === 'city'" (click)="sortUsersByCity()">City</button>
             </div>
         </div>
     </div>

@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { DatabaseService } from '../database.service';
 
 @Component({
@@ -11,16 +10,16 @@ export class ProductsComponent {
   products: any[] = [];
   @Input() input!: string;
   filteredData!: any[];
+  selectedFilter: string = '';
 
 
-  constructor(private authService: AuthService, private database: DatabaseService) { }
+  constructor(private database: DatabaseService) { }
 
 
   /**
    * Navigates using the AuthService and subscribes to the product list.
    */
   ngOnInit(): void {
-    this.authService.navigate();
     this.subProductsList();
   }
 
@@ -68,6 +67,7 @@ export class ProductsComponent {
    * @returns {any[]} The sorted product list.
    */
   sortByTitle() {
+    this.selectedFilter = 'title';
     return this.products.sort((a, b) => a.title.localeCompare(b.title));
   }
 
@@ -78,6 +78,7 @@ export class ProductsComponent {
    * @returns {any[]} The sorted product list.
    */
   sortByType() {
+    this.selectedFilter = 'type';
     return this.products.sort((a, b) => a.type.localeCompare(b.type));
   }
 
@@ -88,6 +89,7 @@ export class ProductsComponent {
    * @returns {any[]} The sorted product list.
    */
   sortByPrice() {
+    this.selectedFilter = 'price';
     return this.products.sort((a, b) => {
       return a.value - b.value;
     });

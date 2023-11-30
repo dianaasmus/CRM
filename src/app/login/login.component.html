@@ -5,11 +5,12 @@
 
         <img src="../../assets/imgs/crm-logo.png" alt="CRM logo">
 
-        <h1>Login</h1>
+        <h1>{{ signUp ? 'Sign up' : 'Log in' }}</h1>
 
-        <form (ngSubmit)="signIn()" [formGroup]="loginForm" *ngIf="login">
+        <form (ngSubmit)="signUp ? signUpUser() : signIn()" [formGroup]="getForm()" *ngIf="!showLoginOptions">
 
-            <mat-icon class="arrow-back" matTooltip="Login Options" (click)="login = false">arrow_back_ios</mat-icon>
+            <mat-icon class="arrow-back" matTooltip="Login Options"
+                (click)="loginOptionsReset()">arrow_back_ios</mat-icon>
 
             <div class="form-group">
                 <mat-form-field class="input-outline" appearance="outline"
@@ -19,7 +20,7 @@
                 </mat-form-field>
 
                 <div class="input-feedback"
-                    *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+                    *ngIf="getForm().get('email')?.hasError('required') && getForm().get('email')?.touched">
                     Email is required.
                 </div>
             </div>
@@ -33,21 +34,37 @@
                 </mat-form-field>
 
                 <div class="input-feedback" id="passwordFeedback"
-                    *ngIf="(loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) || userNotFound">
-                    {{ userNotFound ? 'Invalid login credentials.' : 'Password is required.' }}
+                    *ngIf="getForm().get('password')?.hasError('pattern') && getForm().get('password')?.touched">
+                    Password must contain at least one uppercase letter, one digit, and one special character.
                 </div>
             </div>
 
-            <button type="submit" [disabled]="loginForm.invalid">Log in</button>
+            <div class="form-group" *ngIf="signUp">
+                <mat-form-field class="input-outline" appearance="outline">
+                    <mat-label type="password" for="confirmPassword" class="label">Confirm Password</mat-label>
+                    <input matInput type="password" id="confirmPassword" formControlName="confirmPassword"
+                        autocomplete="new-password" required>
+                </mat-form-field>
+
+                <div class="input-feedback"
+                    *ngIf="getForm().hasError('passwordMismatch') && getForm().get('confirmPassword')?.touched">
+                    Passwords do not match.
+                </div>
+            </div>
+
+            <button type="submit" [ngClass]="{ 'disabled-button': getForm().invalid }" [disabled]="getForm().invalid">{{
+                signUp ? 'Sign up' : 'Log in' }}</button>
         </form>
 
-        <div *ngIf="!login" class="select-login-container">
-            <button (click)="login = true"><mat-icon>mail</mat-icon>Email/Password</button>
+        <div *ngIf="showLoginOptions" class="select-login-container">
+            <button (click)="showLoginOptions = false"><mat-icon>mail</mat-icon>Email/Password</button>
 
             <button (click)="signInAnonymously()"><mat-icon>admin_panel_settings</mat-icon>Guest Login</button>
         </div>
 
-        <p>New here? <a routerLink="sign-up">Sign up</a></p>
+        <p [ngStyle]="{'padding-top': '20px'}" *ngIf="signUp">Already have an account? <a href="#"
+                (click)="alreadyUser()">Log in</a></p>
+        <p [ngStyle]="{'padding-top': '20px'}" *ngIf="!signUp">New here? <a href="#" (click)="setNewUser()">Sign up</a></p>
 
     </mat-card>
 </div>

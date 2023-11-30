@@ -27,10 +27,11 @@
     justify-content: center;
     color: white;
     gap: 10px;
-    padding: 10px 0 0 0;
+    padding: 10px 15px 0 15px !important;
 
     @media (max-width: 730px) {
-        padding: 70px 0 0 0;
+        padding: 0;
+        justify-content: unset;
     }
 }
 
@@ -46,6 +47,7 @@ form {
 
     @media (max-width: 730px) {
         flex-direction: column;
+        gap: 10px;
     }
 
     div {
@@ -106,6 +108,10 @@ button {
         background-color: #a698ff;
         color: #232632 !important;
     }
+}
+
+.disabled-button {
+    color: grey !important;
 }
 
 .date-picker {

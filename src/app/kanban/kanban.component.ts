@@ -4,7 +4,6 @@ import { Firestore } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { Product } from 'src/models/products.class';
 import { User } from 'src/models/user.class';
-import { AuthService } from '../auth.service';
 import { DatabaseService } from '../database.service';
 import { DialogChangeStateComponent } from '../dialog-change-state/dialog-change-state.component';
 
@@ -27,7 +26,7 @@ export class KanbanComponent {
   firestore: Firestore = inject(Firestore);
 
 
-  constructor(private authService: AuthService, private database: DatabaseService, private dialog: MatDialog) { }
+  constructor(private database: DatabaseService, private dialog: MatDialog) { }
 
 
   /**
@@ -54,7 +53,6 @@ export class KanbanComponent {
    * Navigates using the AuthService and subscribes to the user list.
    */
   ngOnInit(): void {
-    this.authService.navigate();
     this.subUsersList();
   }
 
@@ -83,20 +81,29 @@ export class KanbanComponent {
       if (titleMatches) {
         return true;
       } else {
-        const matchingUser = this.usersList.find(user => user.id === item.purchaseUser) as User;
-
-        if (matchingUser) {
-          return (
-            matchingUser.firstName.toLowerCase().includes(this.input.toLowerCase()) ||
-            matchingUser.lastName.toLowerCase().includes(this.input.toLowerCase())
-          );
-        } else {
-          return false;
-        }
+        return this.findMatchingUser(item);
       }
     });
 
     return filteredItems;
+  }
+
+
+  /**
+   * Finds and checks if there is a matching user for the given item's purchase user.
+   * 
+   * @param {any} item - The item to check for a matching user.
+   * @returns {boolean} True if a matching user is found, otherwise false.
+   */
+  findMatchingUser(item: any) {
+    const matchingUser = this.usersList.find(user => user.id === item.purchaseUser) as User;
+
+    if (matchingUser) {
+      const fullName = matchingUser.firstName.toLowerCase() + ' ' + matchingUser.lastName.toLowerCase();
+      return fullName.includes(this.input.toLowerCase());
+    } else {
+      return false;
+    }
   }
 
 

@@ -171,10 +171,6 @@ table {
     font-weight: 100;
     margin-bottom: 30px !important;
 
-    @media (max-width: 600px) {
-        width: 500px;
-    }
-
     tr {
         box-sizing: border-box;
         display: flex;

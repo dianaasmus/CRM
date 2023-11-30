@@ -10,13 +10,13 @@
                 <mat-form-field class="input-outline" appearance="outline">
                     <mat-label class="label">First Name</mat-label>
                     <input [disabled]="loading" [(ngModel)]="users.firstName" name="firstName" matInput
-                        placeholder="First Name" required>
+                        placeholder="First Name" type="text" pattern="[a-zA-Z ]+" required>
                 </mat-form-field>
 
                 <mat-form-field class="input-outline" appearance="outline">
                     <mat-label class="label">Last Name</mat-label>
                     <input [disabled]="loading" [(ngModel)]="users.lastName" name="lastName" matInput
-                        placeholder="Last Name" required>
+                        placeholder="Last Name" type="text" pattern="[a-zA-Z ]+" required>
                 </mat-form-field>
             </div>
 
@@ -30,7 +30,8 @@
             <mat-form-field class="input-outline" appearance="outline">
                 <mat-label for="birthdate" class="label">Birthdate</mat-label>
                 <input [disabled]="loading" [(ngModel)]="birthDate" id="birthDate" name="birthdate" matInput
-                    [matDatepicker]="picker" [max]="getMaxDate()" required>
+                    [matDatepicker]="picker" type="text" placeholder="mm/dd/yyyy"
+                    dropSpecialCharacters="true" [max]="getMaxDate()" required>
                 <mat-datepicker-toggle class="date-picker" matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -38,7 +39,7 @@
             <mat-form-field class="input-outline" appearance="outline">
                 <mat-label for="streetHouse" class="label">Street and House No.</mat-label>
                 <input [disabled]="loading" [(ngModel)]="users.street" type="text" id="streetHouse" name="streetHouse"
-                    matInput placeholder="Street and House No." required>
+                    matInput placeholder="Street and House No." pattern="^[a-zA-Z0-9\s\-,]*$" required>
             </mat-form-field>
 
             <div class="double-container">
@@ -51,15 +52,17 @@
                 <mat-form-field class="input-outline" appearance="outline">
                     <mat-label for="city" class="label">City</mat-label>
                     <input [disabled]="loading" [(ngModel)]="users.city" type="text" id="city" name="city" matInput
-                        placeholder="City" required>
+                        placeholder="City" ngModel pattern="[a-zA-Z]+" required>
                 </mat-form-field>
             </div>
         </div>
 
         <div mat-dialog-actions>
             <button (click)="onNoClick()" mat-button>Cancel</button>
-            <button mat-button cdkFocusInitial (click)="addNewUser()"
-                [disabled]="userForm.invalid || loading">Save</button>
+            <button mat-button cdkFocusInitial (click)="addNewUser()" [disabled]="userForm.invalid || loading"
+                [ngClass]="{'disabled-button': userForm.invalid || loading}">
+                Save
+            </button>
         </div>
 
     </form>

@@ -49,6 +49,7 @@ export class SidenavComponent implements OnInit {
    */
   logout() {
     this.authService.signOutUser();
+    this.router.navigate(['/']);
   }
 
 
@@ -69,7 +70,7 @@ export class SidenavComponent implements OnInit {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.showNavbar = event.url !== '/' && event.url !== '/sign-up';
+      this.showNavbar = event.url !== '/';
       if (this.showNavbar) {
         document.getElementById('drawer')?.classList.remove('d-none');
         document.getElementById('menu')?.classList.remove('d-none');

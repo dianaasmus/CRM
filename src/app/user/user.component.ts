@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { User } from 'src/models/user.class';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
+import { User } from 'src/models/user.class';
 import { DatabaseService } from '../database.service';
-import { AuthService } from '../auth.service';
+import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 
 
 
@@ -16,16 +15,16 @@ export class UserComponent {
   usersList: User[] = [];
   @Input() input!: string;
   filteredData!: any[];
+  selectedFilter: string = '';
 
 
-  constructor(private authService: AuthService, private database: DatabaseService, public dialog: MatDialog) { }
+  constructor(private database: DatabaseService, public dialog: MatDialog) { }
 
 
   /**
    * Navigates using the AuthService and subscribes to the user list.
    */
   ngOnInit(): void {
-    this.authService.navigate();
     this.subUsersList();
   }
 
@@ -81,6 +80,7 @@ export class UserComponent {
    * @returns {any[]} The sorted user list.
    */
   sortUsersByFirstName() {
+    this.selectedFilter = 'firstName'
     return this.usersList.sort((a, b) => a.firstName.localeCompare(b.firstName));
   }
 
@@ -91,6 +91,7 @@ export class UserComponent {
    * @returns {any[]} The sorted user list.
    */
   sortUsersByLastName() {
+    this.selectedFilter = 'lastName'
     return this.usersList.sort((a, b) => a.lastName.localeCompare(b.lastName));
   }
 
@@ -101,6 +102,7 @@ export class UserComponent {
    * @returns {any[]} The sorted user list.
    */
   sortUsersByCity() {
+    this.selectedFilter = 'city'
     return this.usersList.sort((a, b) => a.city.localeCompare(b.city));
   }
 

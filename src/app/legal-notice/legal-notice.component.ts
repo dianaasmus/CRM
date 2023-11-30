@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-legal-notice',
@@ -8,14 +7,4 @@ import { AuthService } from '../auth.service';
 })
 export class LegalNoticeComponent {
 
-  
-  constructor(private authService: AuthService) { }
-
-
-  /**
-   * Navigates using the AuthService.
-   */
-  ngOnInit(): void {
-    this.authService.navigate();
-  }
 }

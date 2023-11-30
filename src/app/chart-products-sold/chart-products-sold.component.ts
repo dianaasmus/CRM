@@ -133,7 +133,13 @@ export class ChartProductsSoldComponent {
       chart: {
         width: '500px',
         height: '300px',
-        type: "donut"
+        type: "donut",
+        foreColor: '#fff',
+        events: {
+          dataPointMouseEnter: function (event: any) {
+            event.target.style.cursor = "pointer";
+          }
+        },
       },
       dataLabels: {
         enabled: false

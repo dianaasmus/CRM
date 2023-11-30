@@ -83,6 +83,11 @@ export class ChartUserResidenceComponent {
       chart: {
         type: "bar",
         height: 350,
+        events: {
+          dataPointMouseEnter: function (event: any) {
+            event.target.style.cursor = "pointer";
+          }
+        }
       },
       plotOptions: {
         bar: {

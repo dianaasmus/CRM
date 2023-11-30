@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
-import { Router } from '@angular/router';
+import { initializeApp } from '@angular/fire/app';
 import { signOut } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { initializeApp } from '@angular/fire/app';
+import { getAuth } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -21,20 +20,7 @@ export class AuthService {
   auth = getAuth(this.app);
 
 
-  constructor(private router: Router, private snackBar: MatSnackBar) { }
-
-
-  navigate() {
-    onAuthStateChanged(this.auth, (user: User | null) => {
-      if (!user) {
-        if (this.router.url !== '/') {
-          this.router.navigate(['/']);
-        } else {
-          this.router.navigate(['/']);
-        }
-      } 
-    });
-  }
+  constructor(private snackBar: MatSnackBar) { }
 
 
   signOutUser() {

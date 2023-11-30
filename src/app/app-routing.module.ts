@@ -7,11 +7,10 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { ProductsComponent } from './products/products.component';
 import { KanbanComponent } from './kanban/kanban.component';
 import { LoginComponent } from './login/login.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'sign-up', component: SignUpComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'kanban', component: KanbanComponent },
   { path: 'user', component: UserComponent },
