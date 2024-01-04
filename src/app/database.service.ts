@@ -1,9 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { User } from 'src/models/user.class';
-import { Firestore, collection, onSnapshot, doc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, onSnapshot } from '@angular/fire/firestore';
+import { updateDoc } from 'firebase/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from 'src/models/products.class';
-import { updateDoc } from 'firebase/firestore';
+import { User } from 'src/models/user.class';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,8 @@ export class DatabaseService {
   firestore: Firestore = inject(Firestore);
 
 
-  constructor() {
+  constructor(
+  ) {
     this.subUsersList();
     this.subProductsList();
   }
@@ -68,7 +70,6 @@ export class DatabaseService {
     });
   }
 
-
   /**
    * Subscribes to the 'products' collection in Firestore and updates the productsListSubject.
    * 
@@ -82,7 +83,7 @@ export class DatabaseService {
       list.forEach((element) => {
         products.push(this.setProductsObject(element.data(), element.id));
       });
-      this.productsListSubject.next(products);
+      this.productsListSubject.next(products);      
     });
   }
 

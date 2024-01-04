@@ -3,7 +3,6 @@ import { Firestore } from '@angular/fire/firestore';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Product } from 'src/models/products.class';
 import { User } from 'src/models/user.class';
-import { DataFlowFirebaseService } from '../data-flow-firebase.service';
 import { DatabaseService } from '../database.service';
 
 
@@ -12,7 +11,7 @@ import { DatabaseService } from '../database.service';
   selector: 'app-dialog-change-state',
   templateUrl: './dialog-change-state.component.html',
   styleUrls: ['./dialog-change-state.component.scss'],
-  providers: [DataFlowFirebaseService]
+  providers: []
 })
 export class DialogChangeStateComponent {
   state1Data: any;
